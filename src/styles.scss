@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700;900&family=Raleway:wght@400;700&display=swap');
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "app/styles/custom-bootstrap";
+@import "app/styles/custom";
+@import '~ngx-toastr/toastr-bs4-alert';
+
+body {
+  font-family: 'Raleway', sans-serif;
+  min-height: 100vh;
+}
+
+h1 {
+  font-weight: 900;
+  font-family: 'Lato', sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+}

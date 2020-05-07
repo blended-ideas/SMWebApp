@@ -1,7 +1,6 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {AuthTokenInterface} from '../interfaces/authToken.interface';
-import {AuthenticationService} from './authentication.service';
 import {UserInterface} from '../interfaces/user.interface';
 
 @Injectable({
@@ -65,5 +64,9 @@ export class SessionService {
 
   isLoggedIn(): boolean {
     return Boolean(this._token.access);
+  }
+
+  isAdmin(): boolean {
+    return this.user && this.user.roles.some(r => r.label === 'Admin');
   }
 }
