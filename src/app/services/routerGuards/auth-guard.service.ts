@@ -1,7 +1,5 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {isPlatformServer} from '@angular/common';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {SessionService} from '../session.service';
 
 @Injectable({
@@ -23,16 +21,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   private checkAuth(state: RouterStateSnapshot) {
-    if (isPlatformServer(this.platformId)) {
-      this.router.navigate(['/server-load'], {queryParams: {returnUrl: state.url}});
+    if (!this.sessionService.isLoggedIn()) {
+      this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
       return false;
     } else {
-      if (!this.sessionService.isLoggedIn()) {
-        this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-        return false;
-      } else {
-        return true;
-      }
+      return true;
     }
   }
 }
