@@ -6,6 +6,7 @@ import {concat, interval, Observable} from 'rxjs';
 import {delay, map, tap} from 'rxjs/operators';
 import {SessionService} from './session.service';
 import {UserInterface} from '../interfaces/user.interface';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import {UserInterface} from '../interfaces/user.interface';
 export class AuthenticationService {
 
   constructor(private httpClient: HttpClient,
+              private router: Router,
               private sessionService: SessionService) {
     this.startAuthTokenRefresh();
   }
@@ -33,6 +35,7 @@ export class AuthenticationService {
 
   clearCredentials() {
     this.sessionService.clear();
+    this.router.navigate(['/login']);
   }
 
   private startAuthTokenRefresh() {

@@ -10,12 +10,19 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {LoginComponent} from './components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {HeaderComponent} from './components/layout/header/header.component';
+import {SidebarComponent} from './components/layout/sidebar/sidebar.component';
+import {BaseViewComponent} from './components/layout/base-view/base-view.component';
+import {NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeaderComponent,
+    SidebarComponent,
+    BaseViewComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +30,9 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
     HttpClientModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbDropdownModule,
+    NgbCollapseModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true},
