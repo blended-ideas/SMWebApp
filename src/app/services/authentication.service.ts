@@ -30,7 +30,10 @@ export class AuthenticationService {
     ).pipe(map(responses => {
       return responses[0];
     }));
+  }
 
+  changePassword(id: number, postObj: object): Observable<any> {
+    return this.httpClient.post(`${USER_APIS.user}${id}/${USER_APIS.change_password}`, postObj);
   }
 
   clearCredentials() {
