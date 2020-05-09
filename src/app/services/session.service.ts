@@ -67,6 +67,14 @@ export class SessionService {
   }
 
   isAdmin(): boolean {
-    return this.user && this.user.roles.some(r => r.label === 'Admin');
+    return this.user && this.user.roles.some(r => r.label === 'admin');
+  }
+
+  isAuditor(): boolean {
+    return this.user && this.user.roles.some(r => r.label === 'auditor');
+  }
+
+  isShiftWorker(): boolean {
+    return this.user && this.user.roles.some(r => r.label === 'shiftworker');
   }
 }
