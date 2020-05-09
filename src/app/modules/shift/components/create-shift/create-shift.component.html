@@ -1,14 +1,17 @@
 <div class="app-page-title align-items-center">
   <h3>Create Shift</h3>
   <div class="ml-auto">
-    <button (click)="cancel()" class="btn btn-sm btn-danger">
-      <fa-icon [icon]="faTimes"></fa-icon>
-      Cancel
-    </button>
-    <button class="btn btn-sm btn-primary ml-2" form="createShiftForm" type="submit">
-      <fa-icon [icon]="faPlusSquare"></fa-icon>
-      Create
-    </button>
+    <ng-container *ngIf="!isCreating">
+      <button (click)="cancel()" class="btn btn-sm btn-danger">
+        <fa-icon [icon]="faTimes"></fa-icon>
+        Cancel
+      </button>
+      <button class="btn btn-sm btn-primary ml-2" form="createShiftForm" type="submit">
+        <fa-icon [icon]="faPlusSquare"></fa-icon>
+        Create
+      </button>
+    </ng-container>
+    <fa-icon *ngIf="isCreating" [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
   </div>
 </div>
 
@@ -83,14 +86,14 @@
           <h6>Products Sold</h6>
         </div>
         <div class="card-body">
-          <div *ngFor="let productCtrl of getProductControls();let i=index" formArrayName="products">
+          <div *ngFor="let productCtrl of getProductControls();let i=index" formArrayName="entries">
             <ng-container [formGroupName]="i">
               <div class="d-flex justify-content-between">
-                <div>{{this.shiftForm.getRawValue()['products'][i]['product'].name}} </div>
+                <div>{{this.shiftForm.getRawValue()['entries'][i]['product'].name}} </div>
                 <fa-icon [icon]="faTimes"></fa-icon>
               </div>
               <div class="col-8 row form-group">
-                <input class="form-control form-control-sm col-6" formControlName="quantity" id="products{{i}}"
+                <input class="form-control form-control-sm col-6" formControlName="quantity" id="entries{{i}}"
                        title="Quantity" type="number">
               </div>
             </ng-container>

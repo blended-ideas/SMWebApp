@@ -9,6 +9,7 @@ import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} fro
 import {HttpParams} from '@angular/common/http';
 import {ProductService} from '../../../../services/product.service';
 import {SessionService} from '../../../../services/session.service';
+import {ShiftService} from '../../../../services/shift.service';
 
 @Component({
   selector: 'app-create-shift',
@@ -29,10 +30,12 @@ export class CreateShiftComponent implements OnInit {
   products: Observable<ProductInterface[]>;
   productSearchString = new Subject<string>();
   productsLoading: boolean;
+  isCreating: boolean;
 
   constructor(private location: Location,
               private productService: ProductService,
               private sessionService: SessionService,
+              private shiftService: ShiftService,
               private fb: FormBuilder) {
   }
 
@@ -68,7 +71,9 @@ export class CreateShiftComponent implements OnInit {
   }
 
   cancel() {
-    this.location.back();
+    if ('Cancel Shift Creation?') {
+      this.location.back();
+    }
   }
 
   createShift() {
@@ -102,19 +107,27 @@ export class CreateShiftComponent implements OnInit {
       user: this.sessionService.user.id,
       start_dt: start_dt.toISOString(),
       end_dt: end_dt.toISOString(),
-      products: formValue.products.map(sp => ({product: sp.product.id, quantity: sp.quantity}))
+      entries: formValue.entries.map(e => ({product: e.product.id, quantity: e.quantity}))
     };
+
+    this.isCreating = true;
+    this.shiftService.createShift(postObj).subscribe(response => {
+      alert('Shift Added');
+      this.isCreating = false;
+      this.location.back();
+    }, () => {
+      this.isCreating = false;
+    });
   }
 
   addProduct(product: ProductInterface) {
     if (product) {
-      const shiftProducts = this.shiftForm.controls.products as FormArray;
-
-      if (shiftProducts.getRawValue().some(sp => sp.product.id === product.id)) {
+      const shiftEntries = this.shiftForm.controls.entries as FormArray;
+      if (shiftEntries.getRawValue().some(e => e.product.id === product.id)) {
         return;
       }
 
-      shiftProducts.push(this.fb.group({
+      shiftEntries.push(this.fb.group({
         product: [product],
         quantity: [1, [Validators.required, Validators.min(1), Validators.max(product.stock)]]
       }));
@@ -122,7 +135,7 @@ export class CreateShiftComponent implements OnInit {
   }
 
   getProductControls() {
-    return (this.shiftForm.controls.products as FormArray).controls;
+    return (this.shiftForm.controls.entries as FormArray).controls;
   }
 
   private buildForm() {
@@ -143,7 +156,7 @@ export class CreateShiftComponent implements OnInit {
       start_time: [defaultTime, Validators.required],
       end_date: [defaultDate, Validators.required],
       end_time: [defaultTime, Validators.required],
-      products: this.fb.array([])
+      entries: this.fb.array([])
     });
   }
 }
