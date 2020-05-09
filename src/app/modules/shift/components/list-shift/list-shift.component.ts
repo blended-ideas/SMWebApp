@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {faPlusSquare} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list-shift',
@@ -6,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./list-shift.component.scss']
 })
 export class ListShiftComponent implements OnInit {
+  faPlusSquare = faPlusSquare;
 
   constructor() {
   }
