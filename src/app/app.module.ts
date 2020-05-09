@@ -14,6 +14,7 @@ import {HeaderComponent} from './components/layout/header/header.component';
 import {SidebarComponent} from './components/layout/sidebar/sidebar.component';
 import {BaseViewComponent} from './components/layout/base-view/base-view.component';
 import {NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     ReactiveFormsModule,
     NgbDropdownModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    NgBootstrapFormValidationModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true},

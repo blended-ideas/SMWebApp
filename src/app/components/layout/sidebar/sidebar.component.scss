@@ -16,17 +16,19 @@
     list-style: none;
     padding: .5em;
     cursor: pointer;
+    outline: none;
+    color: var(--secondary);
 
     &:hover {
       opacity: 0.65;
     }
 
     &.active {
-      background: var(--blue);
+      color: var(--teal);
     }
 
     &:hover {
-      background: var(--secondary);
+      //background: var(--secondary);
     }
 
   }

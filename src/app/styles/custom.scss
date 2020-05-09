@@ -24,9 +24,11 @@ textarea {
   align-items: center;
   border-bottom: $border-width solid $border-color !important;
   margin-bottom: 1rem;
+  padding: 1rem;
 
-  h1 {
+  h1, h2, h3, h4, h5, h6 {
     font-size: 1.8rem;
+    text-transform: capitalize;
   }
 
   .page-actions {
