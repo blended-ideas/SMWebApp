@@ -1,18 +1,13 @@
 <div class="app-page-title align-items-center">
   <h3>{{mode}} Product/Service</h3>
   <div class="ml-auto">
-    <button class="btn btn-sm btn-primary" form="createProductForm" type="submit">
-      <fa-icon [icon]="faPlusSquare"></fa-icon>
-      Create
-    </button>
-
     <button (click)="cancel()" class="btn btn-sm btn-danger ml-2">
       <fa-icon [icon]="faTimes"></fa-icon>
       Cancel
     </button>
-
-    <button (click)="test()" class="btn btn-sm btn-danger ml-2">
-      Test
+    <button class="btn btn-sm btn-primary" form="createProductForm" type="submit">
+      <fa-icon [icon]="mode === 'create' ? faPlusSquare: faEdit"></fa-icon>
+      {{mode}}
     </button>
   </div>
 </div>
@@ -41,7 +36,7 @@
 
       <div class="row">
         <div class="form-group col-12 col-sm-6">
-          <label class="col-form-label col-form-label-sm" for="distributor_margin">Distributor Margin</label>
+          <label class="col-form-label col-form-label-sm" for="distributor_margin">Shell Margin</label>
           <input class="form-control form-control-sm" formControlName="distributor_margin" id="distributor_margin"
                  type="number">
         </div>

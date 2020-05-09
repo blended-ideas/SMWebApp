@@ -3,3 +3,7 @@
   min-width: 350px;
   margin: auto;
 }
+
+button[type=submit] {
+  text-transform: capitalize;
+}

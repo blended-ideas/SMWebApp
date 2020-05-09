@@ -5,7 +5,7 @@ import {SessionService} from '../../../../services/session.service';
 import {ProductService} from '../../../../services/product.service';
 import {Observable} from 'rxjs';
 import {Location} from '@angular/common';
-import {faPlusSquare, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faEdit, faPlusSquare, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -16,6 +16,7 @@ import {ActivatedRoute} from '@angular/router';
 export class CreateProductComponent implements OnInit {
   faTimes = faTimes;
   faPlusSquare = faPlusSquare;
+  faEdit = faEdit;
   faSpinner = faSpinner;
 
   productForm: FormGroup;
@@ -52,7 +53,6 @@ export class CreateProductComponent implements OnInit {
   createProduct() {
     this.isCreating = true;
     const postObj = this.productForm.getRawValue();
-    console.log(postObj);
 
     let apiCall: Observable<ProductInterface>;
     const successMessage = `Product ${this.mode === 'create' ? 'created' : 'edited'}`;
@@ -70,10 +70,6 @@ export class CreateProductComponent implements OnInit {
       alert('Something went wrong while creating the product/service');
       this.isCreating = false;
     });
-  }
-
-  test() {
-    console.log(this.productForm.controls);
   }
 
   private buildForm() {
