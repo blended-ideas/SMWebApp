@@ -6,8 +6,8 @@ import {ViewShiftComponent} from './components/view-shift/view-shift.component';
 import {ShiftRoutingModule} from './shift-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
-import {ReactiveFormsModule} from '@angular/forms';
-import {NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 
 
@@ -21,7 +21,10 @@ import {NgSelectModule} from '@ng-select/ng-select';
     ReactiveFormsModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
-    NgSelectModule
+    NgSelectModule,
+    NgbPaginationModule,
+    FormsModule,
+    NgbDropdownModule
   ]
 })
 export class ShiftModule {

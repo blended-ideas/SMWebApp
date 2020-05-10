@@ -40,7 +40,7 @@
         <th scope="col">Name</th>
         <th scope="col">Stock</th>
         <th scope="col">Price</th>
-        <th scope="col"></th>
+        <th *ngIf="viewEdit" scope="col"></th>
       </tr>
       </thead>
       <tbody>
@@ -48,7 +48,7 @@
         <td>{{product.name}}</td>
         <td>{{product.stock}}</td>
         <td>{{product.price}}</td>
-        <td>
+        <td *ngIf="viewEdit">
           <fa-icon [icon]="faEdit" [routerLink]="['/product', product.id, 'edit']" class="clickable"></fa-icon>
         </td>
       </tr>

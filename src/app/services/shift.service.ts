@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ShiftDetailInterface} from '../interfaces/shift.interface';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {SHIFT_APIS} from '../constants/api.constants';
+import {PaginatedResponseInterface} from '../interfaces/paginatedResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,13 @@ import {SHIFT_APIS} from '../constants/api.constants';
 export class ShiftService {
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  getShifts(params?: HttpParams, link?: string): Observable<PaginatedResponseInterface<ShiftDetailInterface>> {
+    if (link) {
+      return this.httpClient.get<PaginatedResponseInterface<ShiftDetailInterface>>(link);
+    }
+    return this.httpClient.get<PaginatedResponseInterface<ShiftDetailInterface>>(SHIFT_APIS.detail, {params});
   }
 
   createShift(postObj: object): Observable<ShiftDetailInterface> {

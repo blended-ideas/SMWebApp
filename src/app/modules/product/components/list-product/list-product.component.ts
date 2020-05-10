@@ -17,6 +17,7 @@ import {ProductService} from '../../../../services/product.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
+import {SessionService} from '../../../../services/session.service';
 
 @Component({
   selector: 'app-list-product',
@@ -48,9 +49,11 @@ export class ListProductComponent implements OnInit {
     pageSize: 10,
     totalSize: 0
   };
+  viewEdit: boolean;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
+              private sessionService: SessionService,
               private modal: NgbModal,
               private router: Router) {
   }
@@ -59,6 +62,8 @@ export class ListProductComponent implements OnInit {
     this.route.queryParamMap.subscribe(queryParamMap => {
       this.fetchProducts(null, queryParamMap);
     });
+
+    this.viewEdit = this.sessionService.isAdmin() || this.sessionService.isAuditor();
   }
 
   changeQueryParam(paramType: 'search' | 'sort' | 'page', paramValue: string | number) {
@@ -67,7 +72,6 @@ export class ListProductComponent implements OnInit {
       sort: this.sortContext.value,
       search: this.searchText
     };
-
     switch (paramType) {
       case 'page':
         queryParams.page = paramValue as number;

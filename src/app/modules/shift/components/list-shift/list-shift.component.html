@@ -7,3 +7,74 @@
     </button>
   </div>
 </div>
+
+<div class="px-2">
+  <div class="card flex-row d-block d-sm-flex">
+    <div *ngIf="sortContext" class="filter p-2 border-right clickable" ngbDropdown>
+      <div class="text-center" ngbDropdownToggle>
+        {{sortContext.name}}
+        <fa-icon [icon]="sortContext.icon" class="ml-4"></fa-icon>
+      </div>
+      <div aria-labelledby="dropdownBasic1" ngbDropdownMenu>
+        <div class="p-2">
+          <button (click)="changeQueryParam('sort', sortValue.value)" *ngFor="let sortValue of sortValues"
+                  class="d-flex justify-content-between" ngbDropdownItem>
+            {{sortValue.name}}
+            <fa-icon [icon]="sortValue.icon"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="search_wrapper p-2 d-flex align-items-center justify-content-center">
+      <fa-icon (click)="changeQueryParam('search', searchText)" [icon]="faSearch"></fa-icon>
+      <input (keyup.enter)="changeQueryParam('search', searchText)" [(ngModel)]="searchText" [disabled]="isLoading"
+             class="custom-search" placeholder="Search" title="Search"
+             type="text">
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading" class="pt-4 table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Shift Total</th>
+        <th scope="col">Distributor Margin</th>
+        <th scope="col">Shell Margin</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let shift of shifts">
+        <td>{{shift.user_name}}</td>
+        <td>{{shift.end_dt | date: 'dd/MM/yyyy hh:mm a'}}</td>
+        <td>{{shift.price_total}}</td>
+        <td>{{shift.distributor_margin_total}}</td>
+        <td>{{shift.retailer_margin_total}}</td>
+        <td>
+          <fa-icon [icon]="faEdit" [routerLink]="['/shift', shift.id, 'edit']" class="clickable mr-1"></fa-icon>
+          <fa-icon [icon]="faEye" [routerLink]="['/shift', shift.id, 'view']" class="clickable ml-1"></fa-icon>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center justify-content-sm-end">
+    <ngb-pagination
+      (pageChange)="changeQueryParam('page', $event)"
+      [(page)]="paginationHelper.currentPage"
+      [boundaryLinks]="true"
+      [collectionSize]="paginationHelper.totalSize"
+      [directionLinks]="true"
+      [disabled]="isLoading"
+      [maxSize]="5"
+      [pageSize]="paginationHelper.pageSize"
+      [size]="'sm'"></ngb-pagination>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center pt-4">
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
+  </div>
+
+</div>
