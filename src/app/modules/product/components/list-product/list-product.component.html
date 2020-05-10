@@ -47,7 +47,7 @@
       <tr *ngFor="let product of products">
         <td>{{product.name}}</td>
         <td>{{product.stock}}</td>
-        <td>{{product.price}}</td>
+        <td>{{product.price|inr}}</td>
         <td *ngIf="viewEdit">
           <fa-icon [icon]="faEdit" [routerLink]="['/product', product.id, 'edit']" class="clickable"></fa-icon>
         </td>

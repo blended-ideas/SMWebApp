@@ -9,6 +9,7 @@ import {CreateProductComponent} from './components/create-product/create-product
 import {ViewProductComponent} from './components/view-product/view-product.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {PipeModule} from '../pipe/pipe.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import {NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap
     FontAwesomeModule,
     NgbPaginationModule,
     NgbDropdownModule,
+    PipeModule,
   ]
 })
 export class ProductModule {

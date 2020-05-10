@@ -39,9 +39,9 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">End Date</th>
-        <th scope="col">Shift Total</th>
-        <th scope="col">Distributor Margin</th>
-        <th scope="col">Shell Margin</th>
+        <th class="text-right" scope="col">Shift Total</th>
+        <th class="text-right" scope="col">Retailer Margin</th>
+        <th class="text-right" scope="col">Shell Margin</th>
         <th scope="col"></th>
       </tr>
       </thead>
@@ -49,9 +49,9 @@
       <tr *ngFor="let shift of shifts">
         <td>{{shift.user_name}}</td>
         <td>{{shift.end_dt | date: 'dd/MM/yyyy hh:mm a'}}</td>
-        <td>{{shift.price_total}}</td>
-        <td>{{shift.distributor_margin_total}}</td>
-        <td>{{shift.retailer_margin_total}}</td>
+        <td class="text-right">{{shift.price_total | inr}}</td>
+        <td class="text-right">{{shift.retailer_margin_total| inr}}</td>
+        <td class="text-right">{{shift.distributor_margin_total| inr}}</td>
         <td>
           <fa-icon [icon]="faEdit" [routerLink]="['/shift', shift.id, 'edit']" class="clickable mr-1"></fa-icon>
           <fa-icon [icon]="faEye" [routerLink]="['/shift', shift.id, 'view']" class="clickable ml-1"></fa-icon>
