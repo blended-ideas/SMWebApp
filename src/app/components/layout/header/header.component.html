@@ -16,7 +16,7 @@
           <a (click)="$event.preventDefault()" [routerLink]="['/profile', 'edit']" ngbDropdownItem>Profile</a>
           <a (click)="$event.preventDefault()" [routerLink]="['/profile', 'password']" ngbDropdownItem>Change
             Password</a>
-          <a (click)="$event.preventDefault(); logout()" ngbDropdownItem>Logout</a>
+          <a (click)="$event.preventDefault(); logout()" class="clickable" ngbDropdownItem>Logout</a>
         </div>
       </li>
     </ul>

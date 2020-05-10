@@ -23,4 +23,8 @@ export class ShiftService {
   createShift(postObj: object): Observable<ShiftDetailInterface> {
     return this.httpClient.post<ShiftDetailInterface>(SHIFT_APIS.detail, postObj);
   }
+
+  getShiftById(id: string): Observable<ShiftDetailInterface> {
+    return this.httpClient.get<ShiftDetailInterface>(`${SHIFT_APIS.detail}${id}/`);
+  }
 }

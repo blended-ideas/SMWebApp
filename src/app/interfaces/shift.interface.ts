@@ -1,9 +1,4 @@
-export interface ShiftProductsInterface {
-  id: string;
-  product: string;
-  shift: string;
-  quantity: number;
-}
+import {ProductStockChangeInterface} from './product.interface';
 
 export interface ShiftDetailInterface {
   id: string;
@@ -11,7 +6,7 @@ export interface ShiftDetailInterface {
   end_dt: string;
   user: string;
   user_name: string;
-  entries: ShiftProductsInterface;
+  entries: ProductStockChangeInterface[];
 
   price_total: number;
   distributor_margin_total: number;

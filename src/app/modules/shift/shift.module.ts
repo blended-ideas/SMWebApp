@@ -9,6 +9,7 @@ import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {PipeModule} from '../pipe/pipe.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     NgSelectModule,
     NgbPaginationModule,
     FormsModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    PipeModule
   ]
 })
 export class ShiftModule {

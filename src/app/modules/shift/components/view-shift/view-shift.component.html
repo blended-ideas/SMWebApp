@@ -1,1 +1,73 @@
-<p>view-shift works!</p>
+<div class="app-page-title align-items-center">
+  <h3>Shift Details</h3>
+  <div class="ml-auto">
+    <button (click)="cancel()" class="btn btn-sm btn-danger" type="button">
+      Back
+    </button>
+    <button *ngIf="allowEdit" class="btn btn-sm btn-primary ml-2" type="button">
+      <fa-icon [icon]="faEdit"></fa-icon>
+      Edit
+    </button>
+  </div>
+</div>
+
+<div class="viewShiftWrapper">
+  <div *ngIf="isLoading" class="text-center">
+    <fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
+  </div>
+
+  <ng-container *ngIf="!isLoading">
+    <div class="row">
+      <div class="col-4">Shift By:</div>
+      <div class="col-8">{{shiftDetail.user_name}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">Shift Start Time:</div>
+      <div class="col-8">{{shiftDetail.start_dt | date: 'dd/MM/yyyy hh:mm a'}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">Shift End Time:</div>
+      <div class="col-8">{{shiftDetail.end_dt | date: 'dd/MM/yyyy hh:mm a'}}</div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-4">Total:</div>
+      <div class="col-8">{{shiftDetail.price_total | inr}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">Shell Margin:</div>
+      <div class="col-8">{{shiftDetail.distributor_margin_total | inr}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">Retailer Margin:</div>
+      <div class="col-8">{{shiftDetail.retailer_margin_total | inr}}</div>
+    </div>
+
+    <hr class="mt-2">
+    <h6>Products Sold: <span *ngIf="shiftDetail.entries.length === 0">No Products Sold</span></h6>
+    <div *ngIf="shiftDetail.entries.length > 0" class="table-responsive">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th class="text-center" scope="col">Quantity</th>
+          <th class="text-right" scope="col">Cost</th>
+          <th class="text-right" scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let entry of shiftDetail.entries">
+          <td>{{entry.product_minimal.name}}</td>
+          <td class="text-center">{{entry.value}}</td>
+          <td class="text-right">{{entry.product_minimal.price|inr}}</td>
+          <td class="text-right">{{entry.shift_total|inr}}</td>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+</div>
