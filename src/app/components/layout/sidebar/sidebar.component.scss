@@ -19,17 +19,14 @@
     outline: none;
     color: var(--secondary);
 
-    &:hover {
-      opacity: 0.65;
-    }
-
     &.active {
       color: var(--teal);
     }
+  }
 
+  li.sidebar__nav_item {
     &:hover {
-      //background: var(--secondary);
+      opacity: 0.65;
     }
-
   }
 }

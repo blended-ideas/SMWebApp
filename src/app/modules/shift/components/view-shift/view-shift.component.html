@@ -56,15 +56,19 @@
           <th scope="col">Name</th>
           <th class="text-center" scope="col">Quantity</th>
           <th class="text-right" scope="col">Cost</th>
+          <th class="text-right" scope="col">Shell Margin</th>
+          <th class="text-right" scope="col">Retailer Margin</th>
           <th class="text-right" scope="col">Total</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let entry of shiftDetail.entries">
-          <td>{{entry.product_minimal.name}}</td>
-          <td class="text-center">{{entry.value}}</td>
-          <td class="text-right">{{entry.product_minimal.price|inr}}</td>
-          <td class="text-right">{{entry.shift_total|inr}}</td>
+          <td>{{entry.product_name}}</td>
+          <td class="text-center">{{entry.quantity}}</td>
+          <td class="text-center">{{entry.price}}</td>
+          <td class="text-right">{{entry.distributor_margin}}%</td>
+          <td class="text-right">{{entry.retailer_margin}}%</td>
+          <td class="text-right">{{entry.entry_total|inr}}</td>
         </tbody>
       </table>
     </div>

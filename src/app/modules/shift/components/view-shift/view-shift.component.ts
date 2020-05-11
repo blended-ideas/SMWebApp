@@ -43,8 +43,7 @@ export class ViewShiftComponent implements OnInit {
     this.shiftService.getShiftById(shiftId).subscribe(response => {
       this.shiftDetail = response;
       this.shiftDetail.entries.forEach(entry => {
-        entry.value = Math.abs(entry.value);
-        entry.shift_total = entry.product_minimal.price * entry.value;
+        entry.entry_total = entry.price * entry.quantity;
       });
       this.isLoading = false;
     }, error => {

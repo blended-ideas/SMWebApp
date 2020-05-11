@@ -2,6 +2,14 @@
   <ul class="sidebar__nav_list">
     <li [routerLink]="['/product']" class="sidebar__nav_item" routerLinkActive="active">Products</li>
     <li [routerLink]="['/shift']" class="sidebar__nav_item" routerLinkActive="active">Shifts</li>
-    <li class="sidebar__nav_item" routerLinkActive="active">Margin</li>
+    <hr class="border-white">
   </ul>
+  <ng-container *ngIf="viewMargins">
+    <h6 class="ml-2">Margin</h6>
+    <ul class="sidebar__nav_list ml-2" routerLinkActive="active">
+      <li [routerLink]="['/margin', 'daily']" class="sidebar__nav_item" routerLinkActive="active">Daily</li>
+      <li [routerLink]="['/margin', 'weekly']" class="sidebar__nav_item" routerLinkActive="active">Weekly</li>
+      <li [routerLink]="['/margin', 'monthly']" class="sidebar__nav_item" routerLinkActive="active">Monthly</li>
+    </ul>
+  </ng-container>
 </div>

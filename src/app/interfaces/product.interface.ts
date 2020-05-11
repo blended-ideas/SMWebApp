@@ -7,6 +7,7 @@ export interface ProductInterface {
 
   stock: number;
   price: number;
+  landing_price: number;
   distributor_margin: number;
   retailer_margin: number;
   barcode_entry: string;
@@ -15,19 +16,10 @@ export interface ProductInterface {
   is_active: boolean;
 }
 
-export interface ProductMinimalInterface {
-  name: string;
-  category: string;
-  price: number;
-  distributor_margin: number;
-  retailer_margin: number;
-}
-
 export interface ProductStockChangeInterface {
   id: number;
   user: string;
   product: string;
-  product_minimal: ProductMinimalInterface;
   value: number;
   changeType: 'INITIAL_STOCK' | 'SHIFT' | 'ADDITION' | 'DEDUCTION';
 

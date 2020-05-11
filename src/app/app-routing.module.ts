@@ -13,7 +13,8 @@ const routes: Routes = [
       {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
       {path: 'profile', loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)},
       {path: 'product', loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule)},
-      {path: 'shift', loadChildren: () => import('./modules/shift/shift.module').then(m => m.ShiftModule)}
+      {path: 'shift', loadChildren: () => import('./modules/shift/shift.module').then(m => m.ShiftModule)},
+      {path: 'margin', loadChildren: () => import('./modules/margin/margin.module').then(m => m.MarginModule)}
     ]
   }
 ];
