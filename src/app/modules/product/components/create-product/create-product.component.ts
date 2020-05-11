@@ -80,12 +80,14 @@ export class CreateProductComponent implements OnInit {
       category: this.fb.control(this.product?.category || '', [Validators.maxLength(500)]),
 
       price: this.fb.control(this.product?.price || null, [Validators.required, Validators.max(90000000), Validators.min(0)]),
-      landing_price: this.fb.control(this.product?.landing_price || null, [Validators.required, Validators.max(90000000), Validators.min(0)]),
-      distributor_margin: this.fb.control(this.product?.distributor_margin || null, [
+      landing_price: this.fb.control(this.product?.landing_price || null, [
         Validators.required, Validators.max(90000000), Validators.min(0)
       ]),
+      distributor_margin: this.fb.control(this.product?.distributor_margin || null, [
+        Validators.required, Validators.max(100), Validators.min(0)
+      ]),
       retailer_margin: this.fb.control(this.product?.retailer_margin || null, [
-        Validators.required, Validators.max(90000000), Validators.min(0)
+        Validators.required, Validators.max(100), Validators.min(0)
       ]),
 
       stock: this.fb.control(this.product?.stock || null, [
