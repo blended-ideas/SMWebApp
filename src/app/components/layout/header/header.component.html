@@ -16,6 +16,10 @@
           <a (click)="$event.preventDefault()" [routerLink]="['/profile', 'edit']" ngbDropdownItem>Profile</a>
           <a (click)="$event.preventDefault()" [routerLink]="['/profile', 'password']" ngbDropdownItem>Change
             Password</a>
+          <a (click)="$event.preventDefault()" *ngIf="isAdmin" [routerLink]="['/profile', 'list-users']"
+             ngbDropdownItem>
+            Manage Users
+          </a>
           <a (click)="$event.preventDefault(); logout()" class="clickable" ngbDropdownItem>Logout</a>
         </div>
       </li>

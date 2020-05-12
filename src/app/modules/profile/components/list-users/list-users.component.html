@@ -1,0 +1,31 @@
+<div class="h-100 mx-auto">
+  <div class="card cardWrapper">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="text-center">Manage Users</h3>
+      <button (click)="createUser()" class="btn btn-sm btn-primary">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        Create
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="text-center">
+        <fa-icon *ngIf="isLoading" [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
+      </div>
+      <ul *ngIf="!isLoading" class="list-group">
+        <li *ngFor="let user of users" class="list-group-item d-flex">
+          <div>
+            {{user.name}}
+          </div>
+          <div class="ml-auto">
+            <span *ngFor="let role of user.roles"
+                  [ngClass]="{'badge-success': role.label === 'auditor', 'badge-blue': role.label === 'shiftworker'}"
+                  class="badge mr-1">
+            {{role.name}}
+            </span>
+            <fa-icon (click)="openEdit(user)" [icon]="faEdit"></fa-icon>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

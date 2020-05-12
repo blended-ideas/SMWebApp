@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <h4><span class="text-capitalize">{{mode}} User</span></h4>
+</div>
+<div class="modal-body">
+  <form (validSubmit)="saveUser()" *ngIf="userForm && !initialLoading"
+        [formGroup]="userForm" id="createUserForm">
+    <div class="form-group">
+      <label class="col-form-label col-form-label-sm" for="name">Name</label>
+      <input class="form-control form-control-sm" formControlName="name" id="name" type="text">
+    </div>
+
+    <div class="form-group">
+      <label class="col-form-label col-form-label-sm" for="username">Login ID</label>
+      <input class="form-control form-control-sm" formControlName="username" id="username" type="text">
+    </div>
+
+    <div class="row form-group" formGroupName="roles_change">
+      <div class="col-6">
+        <div class="form-check">
+          <input class="form-check-input" formControlName="auditor" id="auditor" type="checkbox">
+          <label class="form-check-label" for="auditor">
+            Auditor
+          </label>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-check">
+          <input class="form-check-input" formControlName="shiftworker" id="shiftworker" type="checkbox">
+          <label class="form-check-label" for="shiftworker">
+            Worker
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="mode === 'create'">
+      <div class="form-group">
+        <label class="col-form-label col-form-label-sm" for="password">Password</label>
+        <input class="form-control form-control-sm" formControlName="password" id="password" type="text">
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label col-form-label-sm" for="confirm_password">Confirm Password</label>
+        <input class="form-control form-control-sm" formControlName="confirm_password" id="confirm_password"
+               type="text">
+      </div>
+
+      <div *ngIf="matchPasswordError" class="text-danger text-center my-4 small">
+        New Password and Confirm Password do not match
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-sm btn-primary" form="createUserForm"><span class="text-capitalize">{{mode}}</span></button>
+</div>

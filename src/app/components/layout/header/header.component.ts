@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   app_name = APP_NAME;
   user: UserInterface;
   isMenuCollapsed = true;
+  isAdmin: boolean;
 
   constructor(private sessionService: SessionService,
               private authenticationService: AuthenticationService) {
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.sessionService.user;
+    this.isAdmin = this.sessionService.isAdmin();
   }
 
   logout() {
