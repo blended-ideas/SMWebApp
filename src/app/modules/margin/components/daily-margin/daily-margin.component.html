@@ -1,1 +1,41 @@
-<p>daily-margin works!</p>
+<div class="app-page-title align-items-center">
+  <h3 class="mb-0">Daily Margin: {{selectedDay|date: 'dd/MM/yyyy'}}</h3>
+  <div class="ml-2">
+    <div class="d-inline-block" ngbDropdown>
+      <button [disabled]="isLoading" class="btn btn-outline-secondary btn-sm" ngbDropdownToggle type="button">
+        <fa-icon [icon]="faCalendar"></fa-icon>
+      </button>
+      <div class="py-0" ngbDropdownMenu>
+        <ngb-datepicker (select)="onDateSelection($event)" class="p-0" ngbDropdownItem>
+        </ngb-datepicker>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="dayMargin && !isLoading" class="card data_wrapper">
+  <div class="row">
+    <div class="col-sm-4 d-none d-sm-block">
+      <div class="card-body text-center">
+        <fa-icon [icon]="faRupeeSign" size="5x"></fa-icon>
+      </div>
+    </div>
+    <div class="col-sm-8 col-12">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6"><h6>Total Sales:</h6></div>
+          <div class="col-6">{{dayMargin.margin.price_total|inr}}</div>
+        </div>
+        <div class="row">
+          <div class="col-6"><h6>Retailer Margin</h6></div>
+          <div class="col-6">{{dayMargin.margin.retailer_margin_total|inr}}</div>
+        </div>
+        <div class="row">
+          <div class="col-6"><h6>Shell Margin:</h6></div>
+          <div class="col-6">{{dayMargin.margin.distributor_margin_total|inr}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,10 +11,14 @@ export const USER_APIS = {
 };
 
 export const PRODUCT_APIS = {
-    product: environment.base_url + 'products/product/'
+  product: environment.base_url + 'products/product/'
 };
 
 export const SHIFT_APIS = {
-    detail: environment.base_url + 'shifts/detail/',
-    entry: environment.base_url + 'shifts/entry/'
+  detail: environment.base_url + 'shifts/detail/',
+  entry: environment.base_url + 'shifts/entry/'
+};
+
+export const REPORT_APIS = {
+  daily: environment.base_url + 'reports/daily_margin/'
 };

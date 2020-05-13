@@ -14,6 +14,9 @@ export interface ProductInterface {
 
   image: string;
   is_active: boolean;
+
+  high_margin?: number; // For Margins
+  high_count?: number; // For Margins
 }
 
 export interface ProductStockChangeInterface {
