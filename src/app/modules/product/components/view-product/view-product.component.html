@@ -1,1 +1,53 @@
-<p>view-product works!</p>
+<div class="modal-header">
+  <div class="text-truncate">{{product.name}}</div>
+  <div>
+    <fa-icon (click)="cancel()" [icon]="faTimes" class="clickable"></fa-icon>
+  </div>
+</div>
+
+<div class="modal-body">
+  Product: <h6>{{product.name}}</h6>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Category</div>
+    <div class="col-12 col-sm-6"> {{product.category}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Landing Price</div>
+    <div class="col-12 col-sm-6"> {{product.landing_price}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Price(MRP)</div>
+    <div class="col-12 col-sm-6"> {{product.price}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Shell margin</div>
+    <div class="col-12 col-sm-6"> {{product.distributor_margin}}%</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Retailer margin</div>
+    <div class="col-12 col-sm-6"> {{product.retailer_margin}}%</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Stock</div>
+    <div class="col-12 col-sm-6"> {{product.stock}}</div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6"> Barcode Entry</div>
+    <div class="col-12 col-sm-6"> {{product.barcode_entry}}</div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <input autofocus="autofocus" class="d-none" type="text">
+  <button (click)="cancel()" [routerLink]="['/product', product.id, 'edit']" class="btn btn-sm btn-primary">
+    <fa-icon [icon]="faEdit"></fa-icon>
+    Edit
+  </button>
+</div>

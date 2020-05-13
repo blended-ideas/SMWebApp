@@ -21,6 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   private checkAuth(state: RouterStateSnapshot) {
+    console.log(this.sessionService.isLoggedIn());
     if (!this.sessionService.isLoggedIn()) {
       this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
       return false;
