@@ -17,7 +17,7 @@ export class ResponseInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(tap(() => {
     }, (error) => {
-      if (error.status === 401 && window.location.href.indexOf('login') === -1) {
+      if ([401, 403].indexOf(error.status) > -1 && window.location.href.indexOf('login') === -1) {
         this.authService.clearCredentials();
         this.router.navigate(['/login']);
       }

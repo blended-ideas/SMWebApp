@@ -1,10 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {faEdit, faEye, faPlusSquare, faSearch, faSortDown, faSortUp, faSpinner} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faEdit,
+  faEye,
+  faPlusSquare,
+  faSearch,
+  faSortDown,
+  faSortUp,
+  faSpinner,
+  faTimes
+} from '@fortawesome/free-solid-svg-icons';
 import {ShiftService} from '../../../../services/shift.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {HttpParams} from '@angular/common/http';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 import {ShiftDetailInterface} from '../../../../interfaces/shift.interface';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-list-shift',
@@ -17,6 +29,8 @@ export class ListShiftComponent implements OnInit {
   faEye = faEye;
   faSpinner = faSpinner;
   faSearch = faSearch;
+  faCalendar = faCalendar;
+  faTimes = faTimes;
 
   paginationHelper = {
     currentPage: 1,
@@ -33,6 +47,8 @@ export class ListShiftComponent implements OnInit {
     {name: 'Shift End Time', icon: faSortDown, value: '-end_dt'},
     {name: 'Shift End Time', icon: faSortUp, value: 'end_dt'},
   ];
+  selectedDate: string;
+  selectedDateRaw: NgbDateStruct;
 
   constructor(private shiftService: ShiftService,
               private route: ActivatedRoute,
@@ -45,11 +61,12 @@ export class ListShiftComponent implements OnInit {
     });
   }
 
-  changeQueryParam(paramType: 'search' | 'sort' | 'page', paramValue: string | number) {
+  changeQueryParam(paramType: 'search' | 'sort' | 'page' | 'date', paramValue: string | number | NgbDateStruct) {
     const queryParams = {
       page: this.paginationHelper.pageSize,
       sort: this.sortContext.value,
-      search: this.searchText
+      search: this.searchText,
+      date: this.selectedDate
     };
 
     switch (paramType) {
@@ -64,7 +81,17 @@ export class ListShiftComponent implements OnInit {
         queryParams.page = 1;
         queryParams.sort = paramValue as string;
         break;
+      case 'date':
+        queryParams.page = 1;
+        console.log(paramValue, 'Hmm');
+        if (paramValue) {
+          const day = paramValue as NgbDateStruct;
+          queryParams.date = moment().year(day.year).month(day.month - 1).date(day.day).hours(0).minutes(0).seconds(0).toISOString();
+        } else {
+          queryParams.date = null;
+        }
     }
+    console.log(queryParams);
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParamsHandling: 'merge',
@@ -85,6 +112,15 @@ export class ListShiftComponent implements OnInit {
       params = params.set('page', this.paginationHelper.currentPage.toString());
     }
 
+    if (queryParamMap.has('date')) {
+      this.selectedDate = queryParamMap.get('date');
+      params = params.set('date', this.selectedDate);
+    } else {
+      this.selectedDate = null;
+    }
+    const dt = this.selectedDate ? new Date(this.selectedDate) : new Date();
+    this.selectedDateRaw = {year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate()};
+
     if (queryParamMap.has('sort')) {
       const sortString = queryParamMap.get('sort');
       this.sortContext = this.sortValues.find(sv => sv.value === sortString);
@@ -95,7 +131,6 @@ export class ListShiftComponent implements OnInit {
     this.shiftService.getShifts(params)
       .subscribe(response => {
         this.shifts = response.results;
-        console.log(this.shifts);
         this.paginationHelper.totalSize = response.count;
         this.isLoading = false;
       }, () => {

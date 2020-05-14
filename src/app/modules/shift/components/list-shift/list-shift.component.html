@@ -31,6 +31,21 @@
              class="custom-search" placeholder="Search" title="Search"
              type="text">
     </div>
+    <div class="d-flex align-items-center">
+      <div class="mr-2" ngbDropdown>
+        <button [disabled]="isLoading" class="btn btn-outline-secondary btn-sm" ngbDropdownToggle type="button">
+          <fa-icon [icon]="faCalendar"></fa-icon>
+        </button>
+        <div class="py-0" ngbDropdownMenu>
+          <ngb-datepicker (select)="changeQueryParam('date', $event)" [(ngModel)]="selectedDateRaw" class="p-0">
+          </ngb-datepicker>
+        </div>
+      </div>
+      <div *ngIf="selectedDate" class="mr-2">
+        {{selectedDate | date: 'dd/MM/yyyy'}}
+        <fa-icon (click)="changeQueryParam('date', null)" [icon]="faTimes" class="clickable"></fa-icon>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="!isLoading" class="pt-4 table-responsive">
