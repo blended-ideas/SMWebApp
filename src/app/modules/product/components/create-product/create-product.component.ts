@@ -66,8 +66,13 @@ export class CreateProductComponent implements OnInit {
       alert(successMessage);
       this.isCreating = false;
       this.location.back();
-    }, () => {
-      alert('Something went wrong while creating the product/service');
+    }, er => {
+      let errStr = 'Something went wrong while creating the product/service';
+      if (er.status === 400) {
+        const keys = Object.keys(er.error);
+        errStr = er.error[keys[0]][0];
+      }
+      alert(errStr);
       this.isCreating = false;
     });
   }
