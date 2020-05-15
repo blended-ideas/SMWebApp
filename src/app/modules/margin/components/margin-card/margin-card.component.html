@@ -1,0 +1,26 @@
+<div class="card mt-2">
+  <div class="row no-gutters">
+    <div class="col-sm-4 col-12 d-flex justify-content-center align-items-center">
+      <div class="card-body">
+        <h4>{{title}}</h4>
+        <p>{{substring}}</p>
+      </div>
+    </div>
+    <div class="col-sm-8 col-12">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6"><h6>Total Sales:</h6></div>
+          <div class="col-6">{{marginData.price_total|inr}}</div>
+        </div>
+        <div class="row">
+          <div class="col-6"><h6>Retailer Margin</h6></div>
+          <div class="col-6">{{marginData.retailer_margin_total|inr}}</div>
+        </div>
+        <div class="row">
+          <div class="col-6"><h6>Shell Margin:</h6></div>
+          <div class="col-6">{{marginData.distributor_margin_total|inr}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
