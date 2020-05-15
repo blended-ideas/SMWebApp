@@ -1,0 +1,44 @@
+<div class="app-page-title align-items-center">
+  <h3 class="mb-0">Margin: {{selectedDay|date: 'dd/MM/yyyy'}}</h3>
+  <div class="ml-2">
+    <div #dropDownRef="ngbDropdown" class="d-inline-block" ngbDropdown>
+      <button [disabled]="isLoading" class="btn btn-outline-secondary btn-sm" ngbDropdownToggle type="button">
+        <fa-icon [icon]="faCalendar"></fa-icon>
+      </button>
+      <div class="py-0" ngbDropdownMenu>
+        <ngb-datepicker (select)="onDateSelection($event); dropDownRef.close()" class="p-0">
+        </ngb-datepicker>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="mt-4 text-center">
+  <fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
+</div>
+
+<div *ngIf="margin && !isLoading" class="data_wrapper">
+  <app-margin-card
+    [marginData]="margin.daily_margin"
+    [substring]="dayString"
+    title="Day Margin">
+  </app-margin-card>
+
+  <app-margin-card
+    [marginData]="margin.weekly_margin"
+    [substring]="weekString"
+    title="Weekly Margin">
+  </app-margin-card>
+
+  <app-margin-card
+    [marginData]="margin.monthly_margin"
+    [substring]="monthString"
+    title="Monthly Margin">
+  </app-margin-card>
+
+  <app-margin-card
+    [marginData]="margin.quarterly_margin"
+    [substring]="quarterString"
+    title="Quarterly Margin">
+  </app-margin-card>
+</div>

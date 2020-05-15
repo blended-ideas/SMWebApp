@@ -7,13 +7,13 @@ import {SessionService} from '../../../services/session.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  viewMargins: boolean;
+  viewMargin: boolean;
 
   constructor(private sessionService: SessionService) {
   }
 
   ngOnInit(): void {
-    this.viewMargins = this.sessionService.isAdmin() || this.sessionService.isAuditor();
+    this.viewMargin = this.sessionService.isAdmin() || this.sessionService.isAuditor();
   }
 
 }

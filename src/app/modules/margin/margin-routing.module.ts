@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RoleGuard} from '../../services/routerGuards/role-guard.service';
-import {DailyMarginComponent} from './components/daily-margin/daily-margin.component';
+import {MarginDisplayComponent} from './components/margin-display/margin-display.component';
 
 const routes: Routes = [
   {
-    path: 'daily',
-    component: DailyMarginComponent,
+    path: '',
+    component: MarginDisplayComponent,
     canActivate: [RoleGuard],
     data: {roles: ['Admin', 'Auditor']}
   },
