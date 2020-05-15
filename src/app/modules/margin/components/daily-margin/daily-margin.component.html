@@ -1,12 +1,12 @@
 <div class="app-page-title align-items-center">
   <h3 class="mb-0">Daily Margin: {{selectedDay|date: 'dd/MM/yyyy'}}</h3>
   <div class="ml-2">
-    <div class="d-inline-block" ngbDropdown>
+    <div #dropDownRef="ngbDropdown" class="d-inline-block" ngbDropdown>
       <button [disabled]="isLoading" class="btn btn-outline-secondary btn-sm" ngbDropdownToggle type="button">
         <fa-icon [icon]="faCalendar"></fa-icon>
       </button>
       <div class="py-0" ngbDropdownMenu>
-        <ngb-datepicker (select)="onDateSelection($event)" class="p-0" ngbDropdownItem>
+        <ngb-datepicker (select)="onDateSelection($event); dropDownRef.close()" class="p-0">
         </ngb-datepicker>
       </div>
     </div>
