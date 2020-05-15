@@ -6,7 +6,8 @@
         <fa-icon [icon]="faCalendar"></fa-icon>
       </button>
       <div class="py-0" ngbDropdownMenu>
-        <ngb-datepicker (select)="onDateSelection($event); dropDownRef.close()" class="p-0">
+        <ngb-datepicker (select)="onDateSelection($event); dropDownRef.close()" [firstDayOfWeek]="7"
+                        class="p-0">
         </ngb-datepicker>
       </div>
     </div>
