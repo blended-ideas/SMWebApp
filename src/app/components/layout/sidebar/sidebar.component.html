@@ -1,7 +1,13 @@
 <div class="sidebar h-100 py-2">
   <ul class="sidebar__nav_list">
-    <li [routerLink]="['/product']" class="sidebar__nav_item" routerLinkActive="active">Products</li>
-    <li [routerLink]="['/shift']" class="sidebar__nav_item" routerLinkActive="active">Shifts</li>
-    <li *ngIf="viewMargin" [routerLink]="['/margin']" class="sidebar__nav_item" routerLinkActive="active">Margin</li>
+    <li [routerLink]="['/product']" class="sidebar__nav_item">
+      <a [routerLink]="['/product']" class="sidebar__nav_link" routerLinkActive="active">Products</a>
+    </li>
+    <li [routerLink]="['/shift']" class="sidebar__nav_item">
+      <a [routerLink]="['/shift']" class="sidebar__nav_link" routerLinkActive="active">Shifts</a>
+    </li>
+    <li [routerLink]="['/margin']" class="sidebar__nav_item">
+      <a [routerLink]="['/margin']" class="sidebar__nav_link" routerLinkActive="active">Margin</a>
+    </li>
   </ul>
 </div>

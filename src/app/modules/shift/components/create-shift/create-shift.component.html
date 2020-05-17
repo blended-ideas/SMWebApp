@@ -66,8 +66,16 @@
                               formControlName="end_time"></ngb-timepicker>
             </div>
           </div>
-          <hr>
-          <div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h6>Products Sold</h6>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
             <ng-select #selectComponent (change)="addProduct($event)" [items]="products | async"
                        [loading]="productsLoading" [typeahead]="productSearchString" class="form-control-sm px-0"
                        id="contact" placeholder="Search for products">
@@ -79,15 +87,7 @@
               </ng-template>
             </ng-select>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h6>Products Sold</h6>
-        </div>
-        <div class="card-body">
+
           <div *ngFor="let productCtrl of getProductControls();let i=index" formArrayName="entries">
             <ng-container [formGroupName]="i">
               <div class="d-flex justify-content-between">

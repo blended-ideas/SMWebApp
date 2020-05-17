@@ -10,10 +10,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {PipeModule} from '../pipe/pipe.module';
+import {EditShiftComponent} from './components/edit-shift/edit-shift.component';
 
 
 @NgModule({
-  declarations: [ListShiftComponent, CreateShiftComponent, ViewShiftComponent],
+  declarations: [ListShiftComponent, CreateShiftComponent, ViewShiftComponent, EditShiftComponent],
   imports: [
     CommonModule,
     ShiftRoutingModule,

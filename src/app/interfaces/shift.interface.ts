@@ -21,6 +21,7 @@ export interface ShiftDetailInterface {
 
   approved: boolean;
   approved_by: number;
+  approved_by_name: string;
 
   price_total: number;
   distributor_margin_total: number;

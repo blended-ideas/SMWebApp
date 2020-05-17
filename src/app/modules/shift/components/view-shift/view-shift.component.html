@@ -4,13 +4,15 @@
     <button (click)="cancel()" class="btn btn-sm btn-danger" type="button">
       Back
     </button>
-    <button *ngIf="allowEdit" class="btn btn-sm btn-primary ml-2" type="button">
+    <button *ngIf="allowEdit && shiftDetail" [routerLink]="['/shift', shiftDetail.id, 'edit']"
+            class="btn btn-sm btn-primary ml-2" type="button">
       <fa-icon [icon]="faEdit"></fa-icon>
       Edit
     </button>
 
     <button (click)="approveShift()" *ngIf="shiftDetail && !shiftDetail.approved && (isAdmin || isAuditor)"
-            class="btn btn-sm btn-blue ml-2">
+            class="btn btn-sm btn-secondary ml-2">
+      <fa-icon [icon]="faCheck"></fa-icon>
       Approve
     </button>
   </div>
@@ -35,6 +37,11 @@
     <div class="row">
       <div class="col-4">Shift End Time:</div>
       <div class="col-8">{{shiftDetail.end_dt | date: 'dd/MM/yyyy hh:mm a'}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">Shift Approved By:</div>
+      <div class="col-8">{{shiftDetail.approved_by_name}}</div>
     </div>
     <hr>
     <div class="row">

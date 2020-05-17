@@ -17,16 +17,18 @@
     padding: .5em;
     cursor: pointer;
     outline: none;
-    color: var(--secondary);
 
-    &.active {
-      color: var(--teal);
-    }
-  }
-
-  li.sidebar__nav_item {
     &:hover {
       opacity: 0.65;
+    }
+
+    .sidebar__nav_link {
+      text-decoration: none;
+      color: var(--white);
+
+      &.active {
+        color: var(--teal);
+      }
     }
   }
 }

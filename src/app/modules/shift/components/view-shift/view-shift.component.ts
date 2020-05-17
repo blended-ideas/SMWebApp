@@ -3,7 +3,7 @@ import {ShiftService} from '../../../../services/shift.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {ShiftDetailInterface} from '../../../../interfaces/shift.interface';
-import {faEdit, faSpinner} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faEdit, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {SessionService} from '../../../../services/session.service';
 
 @Component({
@@ -12,12 +12,14 @@ import {SessionService} from '../../../../services/session.service';
   styleUrls: ['./view-shift.component.scss']
 })
 export class ViewShiftComponent implements OnInit {
-  isLoading: boolean;
   shiftDetail: ShiftDetailInterface;
+
   faSpinner = faSpinner;
   faEdit = faEdit;
-  allowEdit: boolean;
+  faCheck = faCheck;
 
+  isLoading: boolean;
+  allowEdit: boolean;
   isAuditor: boolean;
   isAdmin: boolean;
 
