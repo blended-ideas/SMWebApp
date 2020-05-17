@@ -1,7 +1,9 @@
 export interface ShiftEntryInterface {
+  id: number;
   shift: string;
   product: string;
   product_name: string;
+  product_available_stock: number;
 
   quantity: number;
   price: number;

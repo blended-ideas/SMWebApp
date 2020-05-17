@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {faCalendar, faPlusSquare, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faCalendar, faClipboard, faPlusSquare, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbDateStruct, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import {ProductInterface} from '../../../../interfaces/product.interface';
@@ -21,6 +21,7 @@ export class CreateShiftComponent implements OnInit {
   faPlusSquare = faPlusSquare;
   faSpinner = faSpinner;
   faCalender = faCalendar;
+  faClipBoard = faClipboard;
 
   shiftForm: FormGroup;
 
@@ -95,7 +96,7 @@ export class CreateShiftComponent implements OnInit {
     const dateNow = new Date();
 
     if (start_dt > end_dt) {
-      alert('Start date cannot be less than end date');
+      alert('End date/time cannot be less than start date/time');
       return;
     }
     if (dateNow < start_dt || dateNow < end_dt) {
@@ -111,7 +112,7 @@ export class CreateShiftComponent implements OnInit {
     };
 
     this.isCreating = true;
-    this.shiftService.createShift(postObj).subscribe(response => {
+    this.shiftService.createShift(postObj).subscribe(() => {
       alert('Shift Added');
       this.isCreating = false;
       this.location.back();

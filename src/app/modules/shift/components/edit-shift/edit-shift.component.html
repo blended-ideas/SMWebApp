@@ -1,22 +1,22 @@
 <div class="app-page-title align-items-center">
-  <h3>Create Shift</h3>
+  <h3>Edit Shift</h3>
   <div class="ml-auto">
-    <ng-container *ngIf="!isCreating">
+    <ng-container *ngIf="!isEditing">
       <button (click)="cancel()" class="btn btn-sm btn-danger">
         <fa-icon [icon]="faTimes"></fa-icon>
         Cancel
       </button>
-      <button class="btn btn-sm btn-primary ml-2" form="createShiftForm" type="submit">
-        <fa-icon [icon]="faPlusSquare"></fa-icon>
-        Create
+      <button class="btn btn-sm btn-primary ml-2" form="shiftForm" type="submit">
+        <fa-icon [icon]="faEdit"></fa-icon>
+        Update
       </button>
     </ng-container>
-    <fa-icon *ngIf="isCreating" [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
+    <fa-icon *ngIf="isEditing" [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
   </div>
 </div>
 
-<form (validSubmit)="createShift()" *ngIf="shiftForm" [formGroup]="shiftForm" class="mx-4" id="createShiftForm">
-  <div class="row">
+<form (validSubmit)="updateShift()" *ngIf="shiftForm" [formGroup]="shiftForm" class="mx-4" id="shiftForm">
+  <div *ngIf="shift" class="row">
     <div class="col-12 col-md-6">
       <div class="card">
         <div class="card-header">
@@ -27,13 +27,23 @@
         </div>
         <div class="card-body">
           <div class="row">
+            <div class="col-4">Shift By:</div>
+            <div class="col-8">{{shift.user_name}}</div>
+          </div>
+          <div *ngIf="shift.approved" class="row">
+            <div class="col-4">Approved By:</div>
+            <div class="col-8">{{shift.approved_by_name}}</div>
+          </div>
+
+          <hr>
+
+          <div class="row">
             <div class="col-12">Shift Start</div>
             <div class="form-group col-12 col-sm-6">
               <div class="input-group input-group-sm">
-                <input #start_date="ngbDatepicker" (click)="start_date.open()" [maxDate]="maxDate"
+                <input #start_date="ngbDatepicker" (click)="start_date.open()"
                        [readonly]="true" class="form-control form-control-sm" formControlName="start_date"
-                       id="start_date"
-                       ngbDatepicker title="Shift Start Date" type="text">
+                       id="start_date" ngbDatepicker title="Shift Start Date" type="text">
                 <div class="input-group-append">
                   <button (click)="start_date.toggle()" class="btn btn-outline-secondary" type="button">
                     <fa-icon [icon]="faCalender"></fa-icon>
@@ -46,12 +56,12 @@
                               formControlName="start_time"></ngb-timepicker>
             </div>
           </div>
-          <hr>
+
           <div class="row">
             <div class="col-12">Shift End</div>
             <div class="form-group col-12 col-sm-6">
               <div class="input-group input-group-sm">
-                <input #end_date="ngbDatepicker" (click)="end_date.open()" [maxDate]="maxDate"
+                <input #end_date="ngbDatepicker" (click)="end_date.open()"
                        [readonly]="true" class="form-control form-control-sm" formControlName="end_date" id="end_date"
                        ngbDatepicker title="Shift End Date" type="text">
                 <div class="input-group-append">
@@ -69,29 +79,20 @@
         </div>
       </div>
     </div>
+
     <div class="col-12 col-md-6">
       <div class="card">
         <div class="card-header">
-          <h6>Products Sold</h6>
+          <h6>
+            Products
+            <fa-icon [icon]="faCartPlus"></fa-icon>
+          </h6>
         </div>
         <div class="card-body">
-          <div class="mb-4">
-            <ng-select #selectComponent (change)="addProduct($event)" [items]="products | async"
-                       [loading]="productsLoading" [typeahead]="productSearchString" class="form-control-sm px-0"
-                       id="contact" placeholder="Search for products">
-              <ng-template let-item="item" ng-option-tmp>
-                {{item.name}} | {{item.category}}
-              </ng-template>
-
-              <ng-template let-item="item" ng-label-tmp> {{item.name}} | {{item.category}}
-              </ng-template>
-            </ng-select>
-          </div>
-
           <div *ngFor="let productCtrl of getProductControls();let i=index" formArrayName="entries">
             <ng-container [formGroupName]="i">
               <div class="d-flex justify-content-between">
-                <div>{{this.shiftForm.getRawValue()['entries'][i]['product'].name}} </div>
+                <div>{{this.shiftForm.getRawValue()['entries'][i]['product_name']}} </div>
                 <fa-icon [icon]="faTimes"></fa-icon>
               </div>
               <div class="col-8 row form-group">

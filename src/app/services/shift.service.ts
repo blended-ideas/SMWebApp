@@ -31,4 +31,8 @@ export class ShiftService {
   approveShift(shiftId: string) {
     return this.httpClient.patch<ShiftDetailInterface>(`${SHIFT_APIS.detail}${shiftId}/${SHIFT_APIS.approve}/`, {});
   }
+
+  updateShift(shiftId: string, patchObj: object) {
+    return this.httpClient.patch<ShiftDetailInterface>(`${SHIFT_APIS.detail}${shiftId}/`, patchObj);
+  }
 }
