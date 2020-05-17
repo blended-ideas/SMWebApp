@@ -8,6 +8,11 @@
       <fa-icon [icon]="faEdit"></fa-icon>
       Edit
     </button>
+
+    <button (click)="approveShift()" *ngIf="shiftDetail && !shiftDetail.approved && (isAdmin || isAuditor)"
+            class="btn btn-sm btn-blue ml-2">
+      Approve
+    </button>
   </div>
 </div>
 

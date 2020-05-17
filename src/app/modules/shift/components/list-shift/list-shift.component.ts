@@ -17,6 +17,8 @@ import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 import {ShiftDetailInterface} from '../../../../interfaces/shift.interface';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import {SessionService} from '../../../../services/session.service';
+import {UserInterface} from '../../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-list-shift',
@@ -50,8 +52,13 @@ export class ListShiftComponent implements OnInit {
   selectedDate: string;
   selectedDateRaw: NgbDateStruct;
 
+  isAdmin: boolean;
+  isAuditor: boolean;
+  user: UserInterface;
+
   constructor(private shiftService: ShiftService,
               private route: ActivatedRoute,
+              private sessionService: SessionService,
               private router: Router) {
   }
 
@@ -59,6 +66,10 @@ export class ListShiftComponent implements OnInit {
     this.route.queryParamMap.subscribe(queryParamMap => {
       this.fetchShifts(queryParamMap);
     });
+
+    this.user = this.sessionService.user;
+    this.isAdmin = this.sessionService.isAdmin();
+    this.isAuditor = this.sessionService.isAuditor();
   }
 
   changeQueryParam(paramType: 'search' | 'sort' | 'page' | 'date', paramValue: string | number | NgbDateStruct) {
@@ -83,7 +94,6 @@ export class ListShiftComponent implements OnInit {
         break;
       case 'date':
         queryParams.page = 1;
-        console.log(paramValue, 'Hmm');
         if (paramValue) {
           const day = paramValue as NgbDateStruct;
           queryParams.date = moment().year(day.year).month(day.month - 1).date(day.day).hours(0).minutes(0).seconds(0).toISOString();
@@ -91,7 +101,6 @@ export class ListShiftComponent implements OnInit {
           queryParams.date = null;
         }
     }
-    console.log(queryParams);
     this.router.navigate(['.'], {
       relativeTo: this.route,
       queryParamsHandling: 'merge',

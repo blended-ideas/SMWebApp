@@ -16,7 +16,8 @@ export const PRODUCT_APIS = {
 
 export const SHIFT_APIS = {
   detail: environment.base_url + 'shifts/detail/',
-  entry: environment.base_url + 'shifts/entry/'
+  entry: environment.base_url + 'shifts/entry/',
+  approve: 'approve'
 };
 
 export const REPORT_APIS = {

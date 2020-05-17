@@ -18,6 +18,9 @@ export class ViewShiftComponent implements OnInit {
   faEdit = faEdit;
   allowEdit: boolean;
 
+  isAuditor: boolean;
+  isAdmin: boolean;
+
   constructor(private shiftService: ShiftService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
@@ -31,11 +34,24 @@ export class ViewShiftComponent implements OnInit {
       }
       this.fetchShiftDetails(paramMap.get('shiftId'));
     });
-    this.allowEdit = this.sessionService.isAuditor() || this.sessionService.isAdmin();
+
+    this.isAuditor = this.sessionService.isAuditor();
+    this.isAdmin = this.sessionService.isAdmin();
   }
 
   cancel() {
     this.location.back();
+  }
+
+  approveShift() {
+    if (!confirm('Approve Shift?')) {
+      return;
+    }
+    this.shiftService.approveShift(this.shiftDetail.id).subscribe(response => {
+      this.shiftDetail = response;
+      this.checkAllowEdit();
+      alert('Shift Approved');
+    });
   }
 
   private fetchShiftDetails(shiftId: string) {
@@ -45,6 +61,7 @@ export class ViewShiftComponent implements OnInit {
       this.shiftDetail.entries.forEach(entry => {
         entry.entry_total = entry.price * entry.quantity;
       });
+      this.checkAllowEdit();
       this.isLoading = false;
     }, error => {
       if (error.status === 403) {
@@ -52,5 +69,9 @@ export class ViewShiftComponent implements OnInit {
       }
       this.isLoading = false;
     });
+  }
+
+  private checkAllowEdit() {
+    this.allowEdit = (this.sessionService.isAuditor() && !this.shiftDetail.approved) || this.sessionService.isAdmin();
   }
 }

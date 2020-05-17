@@ -27,4 +27,8 @@ export class ShiftService {
   getShiftById(id: string): Observable<ShiftDetailInterface> {
     return this.httpClient.get<ShiftDetailInterface>(`${SHIFT_APIS.detail}${id}/`);
   }
+
+  approveShift(shiftId: string) {
+    return this.httpClient.patch<ShiftDetailInterface>(`${SHIFT_APIS.detail}${shiftId}/${SHIFT_APIS.approve}/`, {});
+  }
 }
