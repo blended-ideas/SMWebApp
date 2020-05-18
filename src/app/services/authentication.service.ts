@@ -16,6 +16,7 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient,
               private router: Router,
               private sessionService: SessionService) {
+    this.refreshToken();
     this.startAuthTokenRefresh();
   }
 
@@ -44,17 +45,21 @@ export class AuthenticationService {
   private startAuthTokenRefresh() {
     // Refresh Token every 5 minutes
     interval(5 * 60 * 1000).subscribe(() => {
-      const token = this.sessionService.token;
-      if (!token?.refresh) {
-        return;
-      }
-      this.httpClient.post<AuthTokenInterface>(USER_APIS.refreshToken, {refresh: this.sessionService.token.refresh})
-        .subscribe(response => {
-          this.sessionService.token = {
-            access: response.access,
-            refresh: token.refresh
-          };
-        });
+      this.refreshToken();
     });
+  }
+
+  private refreshToken() {
+    const token = this.sessionService.token;
+    if (!token?.refresh) {
+      return;
+    }
+    this.httpClient.post<AuthTokenInterface>(USER_APIS.refreshToken, {refresh: this.sessionService.token.refresh})
+      .subscribe(response => {
+        this.sessionService.token = {
+          access: response.access,
+          refresh: response.refresh
+        };
+      });
   }
 }
