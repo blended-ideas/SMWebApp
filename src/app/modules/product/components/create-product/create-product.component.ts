@@ -6,7 +6,7 @@ import {ProductService} from '../../../../services/product.service';
 import {Observable} from 'rxjs';
 import {Location} from '@angular/common';
 import {faEdit, faPlusSquare, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -30,6 +30,7 @@ export class CreateProductComponent implements OnInit {
               private sessionService: SessionService,
               private location: Location,
               private route: ActivatedRoute,
+              private router: Router,
               private productService: ProductService) {
   }
 
@@ -66,6 +67,7 @@ export class CreateProductComponent implements OnInit {
       alert(successMessage);
       this.isCreating = false;
       this.location.back();
+      this.router.navigate(['/product', response.id, 'view']);
     }, er => {
       let errStr = 'Something went wrong while creating the product/service';
       if (er.status === 400) {

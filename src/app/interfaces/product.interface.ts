@@ -21,7 +21,11 @@ export interface ProductInterface {
 
 export interface ProductStockChangeInterface {
   id: number;
+  created: string;
+
   user: string;
+  user_name: string;
+
   product: string;
   value: number;
   changeType: 'INITIAL_STOCK' | 'SHIFT' | 'ADDITION' | 'DEDUCTION';

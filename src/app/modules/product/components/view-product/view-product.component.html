@@ -1,7 +1,7 @@
 <div class="app-page-title align-items-center">
   <h3>{{product?.name}}</h3>
   <div class="ml-auto">
-    <button *ngIf="product" [routerLink]="['/product', product.id, 'edit']" class="btn btn-sm btn-primary">
+    <button *ngIf="allowEdit" [routerLink]="['/product', product.id, 'edit']" class="btn btn-sm btn-primary">
       <fa-icon [icon]="faEdit"></fa-icon>
       Edit
     </button>
@@ -15,7 +15,7 @@
 <div class="mx-4">
   <div class="row">
     <div class="col-12 col-sm-4">
-      <div *ngIf="product && !isLoading" class="card">
+      <div *ngIf="product && !isLoading" class="card h-100">
         <div class="card-header">
           Product Details
         </div>
@@ -46,8 +46,8 @@
           </div>
 
           <div class="row mb-2">
-            <div class="col-12 col-sm-6"> Stock:</div>
-            <div class="col-12 col-sm-6"> {{product.stock}}</div>
+            <div class="col-12 col-sm-6 font-weight-bold"> Current Stock:</div>
+            <div class="col-12 col-sm-6 font-weight-bold"> {{product.stock}}</div>
           </div>
 
           <div class="row mb-2">
@@ -58,16 +58,45 @@
       </div>
     </div>
     <div class="col-12 col-sm-8">
-      <div class="card">
+      <div class="card h-100">
         <div class="card-header d-block d-sm-flex justify-content-between">
           <div>Stock Changes</div>
           <div class="btn-group btn-group-sm">
-            <button class="btn btn-sm btn-outline-primary">Add Stock</button>
-            <button class="btn btn-sm btn-outline-primary">Remove Stock</button>
+            <button (click)="addRemoveStock('add')" class="btn btn-sm btn-outline-primary">Add Stock</button>
+            <button (click)="addRemoveStock('remove')" class="btn btn-sm btn-outline-primary">Remove Stock</button>
           </div>
         </div>
-        <div class="card-body">
-          Table showing Stock changes
+        <div class="card-body p-0">
+          <table class="table table-striped table-sm mb-0">
+            <thead>
+            <tr>
+              <td>User</td>
+              <td>Date</td>
+              <td>Stock Change</td>
+              <td>Reason</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let psc of productStockChanges">
+              <td>{{psc.user_name}}</td>
+              <td>{{psc.created|date: 'dd/MM/yyyy hh:mm a'}}</td>
+              <td>{{psc.value}}</td>
+              <td>{{psc.changeType}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer d-flex">
+          <ngb-pagination
+            (pageChange)="getProductStockChanges($event)"
+            [collectionSize]="productStockChangePaginationHelper.totalSize"
+            [directionLinks]="true"
+            [disabled]="isLoading"
+            [maxSize]="5"
+            [pageSize]="productStockChangePaginationHelper.pageSize"
+            [page]="productStockChangePaginationHelper.currentPage"
+            [size]="'sm'"
+            class="ml-auto"></ngb-pagination>
         </div>
       </div>
     </div>

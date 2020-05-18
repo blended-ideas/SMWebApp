@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ProductInterface} from '../interfaces/product.interface';
+import {ProductInterface, ProductStockChangeInterface} from '../interfaces/product.interface';
 import {PRODUCT_APIS} from '../constants/api.constants';
 import {Observable} from 'rxjs';
 import {PaginatedResponseInterface} from '../interfaces/paginatedResponse.interface';
@@ -29,5 +29,20 @@ export class ProductService {
 
   getProductById(id: string): Observable<ProductInterface> {
     return this.httpClient.get<ProductInterface>(`${PRODUCT_APIS.product}${id}/`);
+  }
+
+  addStock(productId: string, postBody: object): Observable<{ psu: ProductStockChangeInterface, new_stock: number }> {
+    return this.httpClient.post<{ psu: ProductStockChangeInterface, new_stock: number }>(`${PRODUCT_APIS.product}${productId}/${PRODUCT_APIS.add_stock}`, postBody);
+  }
+
+  reduceStock(productId: string, postBody: object): Observable<{ psu: ProductStockChangeInterface, new_stock: number }> {
+    return this.httpClient.post<{ psu: ProductStockChangeInterface, new_stock: number }>(`${PRODUCT_APIS.product}${productId}/${PRODUCT_APIS.reduce_stock}`, postBody);
+  }
+
+  getProductStockChanges(params?: HttpParams, link?: string): Observable<PaginatedResponseInterface<ProductStockChangeInterface>> {
+    if (link) {
+      return this.httpClient.get<PaginatedResponseInterface<ProductStockChangeInterface>>(link);
+    }
+    return this.httpClient.get<PaginatedResponseInterface<ProductStockChangeInterface>>(PRODUCT_APIS.product_stock_change, {params});
   }
 }

@@ -21,6 +21,10 @@ $theme-colors: (
   display: none !important;
 }
 
+ngb-pagination .pagination {
+  margin-bottom: 0 !important;
+}
+
 // Bootstrap Imports
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";

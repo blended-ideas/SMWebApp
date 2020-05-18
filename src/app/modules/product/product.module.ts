@@ -9,10 +9,16 @@ import {ViewProductComponent} from './components/view-product/view-product.compo
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {PipeModule} from '../pipe/pipe.module';
+import {AddRemoveStockComponent} from './components/add-remove-stock/add-remove-stock.component';
 
 
 @NgModule({
-  declarations: [ListProductComponent, CreateProductComponent, ViewProductComponent],
+  declarations: [
+    ListProductComponent,
+    CreateProductComponent,
+    ViewProductComponent,
+    AddRemoveStockComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
