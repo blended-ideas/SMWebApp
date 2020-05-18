@@ -101,7 +101,7 @@ export class EditShiftComponent implements OnInit {
       shiftEntries.push(this.fb.group({
         product: [product.id],
         product_name: [product.name],
-        quantity: [1, [Validators.required, Validators.min(1), Validators.max(product.stock)]],
+        quantity: [1, [Validators.required, Validators.min(0), Validators.max(product.stock)]],
         condition: 'NEW'
       }));
     } else if (type === 'entry') {
@@ -113,7 +113,7 @@ export class EditShiftComponent implements OnInit {
         product: [shiftEntry.product],
         product_name: [shiftEntry.product_name],
         quantity: [shiftEntry.quantity, [
-          Validators.required, Validators.min(1), Validators.max(shiftEntry.product_available_stock + shiftEntry.quantity)
+          Validators.required, Validators.min(0), Validators.max(shiftEntry.product_available_stock + shiftEntry.quantity)
         ]],
         condition: 'EDIT'
       }));

@@ -104,10 +104,7 @@
 
           <div *ngFor="let productCtrl of getProductControls();let i=index" formArrayName="entries">
             <ng-container [formGroupName]="i">
-              <div class="d-flex justify-content-between">
-                <div>{{this.shiftForm.getRawValue()['entries'][i]['product_name']}} </div>
-                <fa-icon [icon]="faTimes"></fa-icon>
-              </div>
+              <div>{{this.shiftForm.getRawValue()['entries'][i]['product_name']}} </div>
               <div class="col-8 row form-group">
                 <input class="form-control form-control-sm col-6" formControlName="quantity" id="entries{{i}}"
                        title="Quantity" type="number">
