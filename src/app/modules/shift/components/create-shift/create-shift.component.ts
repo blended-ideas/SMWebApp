@@ -31,6 +31,7 @@ export class CreateShiftComponent implements OnInit {
   products: Observable<ProductInterface[]>;
   productSearchString = new Subject<string>();
   productsLoading: boolean;
+
   isCreating: boolean;
 
   constructor(private location: Location,

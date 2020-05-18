@@ -9,6 +9,10 @@ import {faCalendar, faCartPlus, faClipboard, faEdit, faSpinner, faTimes} from '@
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbDateStruct, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import {ProductInterface} from '../../../../interfaces/product.interface';
+import {concat, Observable, of, Subject} from 'rxjs';
+import {catchError, debounceTime, distinctUntilChanged, map, switchMap, tap} from 'rxjs/operators';
+import {HttpParams} from '@angular/common/http';
+import {ProductService} from '../../../../services/product.service';
 
 @Component({
   selector: 'app-edit-shift',
@@ -30,12 +34,16 @@ export class EditShiftComponent implements OnInit {
   faCartPlus = faCartPlus;
 
   shiftForm: FormGroup;
+  products: Observable<ProductInterface[]>;
+  productSearchString = new Subject<string>();
+  productsLoading: boolean;
   private user: UserInterface;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
               private shiftService: ShiftService,
               private fb: FormBuilder,
+              private productService: ProductService,
               private sessionService: SessionService) {
   }
 
@@ -44,6 +52,7 @@ export class EditShiftComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.fetchShift(paramMap.get('shiftId'));
     });
+    this.productSearchInit();
   }
 
   cancel() {
@@ -82,20 +91,7 @@ export class EditShiftComponent implements OnInit {
     return (this.shiftForm.controls.entries as FormArray).controls;
   }
 
-  private fetchShift(shiftId: string) {
-    this.isInitialLoading = true;
-    this.shiftService.getShiftById(shiftId).subscribe(response => {
-      this.shift = response;
-      this.isInitialLoading = false;
-      this.checkAllowEdit();
-      this.buildForm();
-    }, () => {
-      this.location.back();
-      this.isInitialLoading = false;
-    });
-  }
-
-  private addProduct(type: 'product' | 'entry', product?: ProductInterface, shiftEntry?: ShiftEntryInterface) {
+  addProduct(type: 'product' | 'entry', product?: ProductInterface, shiftEntry?: ShiftEntryInterface) {
     const shiftEntries = this.shiftForm.controls.entries as FormArray;
 
     if (type === 'product') {
@@ -122,6 +118,39 @@ export class EditShiftComponent implements OnInit {
         condition: 'EDIT'
       }));
     }
+  }
+
+  private productSearchInit() {
+    this.products = concat(
+      of<ProductInterface[]>([]),
+      this.productSearchString.pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(() => this.productsLoading = true),
+        switchMap(term => {
+          const params = new HttpParams().set('search', term);
+          return this.productService.getProducts(params)
+            .pipe(
+              map(resp => resp.results),
+              catchError(() => of([])),
+              tap(() => this.productsLoading = false)
+            );
+        })
+      )
+    );
+  }
+
+  private fetchShift(shiftId: string) {
+    this.isInitialLoading = true;
+    this.shiftService.getShiftById(shiftId).subscribe(response => {
+      this.shift = response;
+      this.isInitialLoading = false;
+      this.checkAllowEdit();
+      this.buildForm();
+    }, () => {
+      this.location.back();
+      this.isInitialLoading = false;
+    });
   }
 
   private checkAllowEdit() {

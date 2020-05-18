@@ -89,6 +89,19 @@
           </h6>
         </div>
         <div class="card-body">
+          <div class="mb-4">
+            <ng-select (change)="addProduct('product', $event)" [items]="products | async"
+                       [loading]="productsLoading" [typeahead]="productSearchString" class="form-control-sm px-0"
+                       id="contact" placeholder="Search for products">
+              <ng-template let-item="item" ng-option-tmp>
+                {{item.name}} | {{item.category}}
+              </ng-template>
+
+              <ng-template let-item="item" ng-label-tmp> {{item.name}} | {{item.category}}
+              </ng-template>
+            </ng-select>
+          </div>
+
           <div *ngFor="let productCtrl of getProductControls();let i=index" formArrayName="entries">
             <ng-container [formGroupName]="i">
               <div class="d-flex justify-content-between">
