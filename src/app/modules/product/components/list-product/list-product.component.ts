@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {
+  faArrowsAltV,
   faEdit,
   faEye,
   faPlusSquare,
@@ -19,7 +20,6 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {HttpParams} from '@angular/common/http';
 import {SessionService} from '../../../../services/session.service';
-import {ViewProductComponent} from '../view-product/view-product.component';
 
 @Component({
   selector: 'app-list-product',
@@ -32,6 +32,7 @@ export class ListProductComponent implements OnInit {
   faEdit = faEdit;
   faSpinner = faSpinner;
   faEye = faEye;
+  faArrowsAltV = faArrowsAltV;
 
   searchText: string;
   sortContext: { name: string, icon: IconDefinition, value: string };
@@ -124,10 +125,5 @@ export class ListProductComponent implements OnInit {
       }, () => {
         this.isLoading = false;
       });
-  }
-
-  viewProduct(product: ProductInterface) {
-    const modal = this.modal.open(ViewProductComponent);
-    modal.componentInstance.product = product;
   }
 }

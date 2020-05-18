@@ -95,7 +95,7 @@ export class CreateProductComponent implements OnInit {
         Validators.required, Validators.max(100), Validators.min(0)
       ]),
 
-      stock: this.fb.control(this.product?.stock || null, [
+      stock: this.fb.control({value: this.product?.stock || null, disabled: this.mode === 'edit'}, [
         Validators.required, Validators.max(90000000), Validators.min(0)
       ]),
       barcode_entry: this.fb.control(this.product?.barcode_entry || null, [

@@ -40,6 +40,7 @@
         <th scope="col">Name</th>
         <th scope="col">Stock Available</th>
         <th scope="col">Price</th>
+        <th scope="col">Barcode Entry</th>
         <th scope="col"></th>
       </tr>
       </thead>
@@ -48,10 +49,11 @@
         <td>{{product.name}}</td>
         <td>{{product.stock}}</td>
         <td>{{product.price|inr}}</td>
+        <td>{{product.barcode_entry}}</td>
         <td>
           <fa-icon *ngIf="viewEdit" [icon]="faEdit" [routerLink]="['/product', product.id, 'edit']"
                    class="clickable mr-2"></fa-icon>
-          <fa-icon (click)="viewProduct(product)" [icon]="faEye" class="clickable"></fa-icon>
+          <fa-icon [icon]="faEye" [routerLink]="['/product', product.id, 'view']" class="clickable"></fa-icon>
         </td>
       </tr>
       </tbody>
