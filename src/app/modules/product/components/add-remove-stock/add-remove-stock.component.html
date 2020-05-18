@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <div class="text-capitalize">{{mode}} Stock for {{product.name}}</div>
+</div>
+
+<div class="modal-body">
+  Current Stock: {{product.stock}}
+  <br>
+  Stock after update: {{stockAfterUpdate}}
+
+  <form (validSubmit)="updateStock()" [formGroup]="stockChangeForm" class="mt-4" id="stockChangeForm">
+    <div class="form-group">
+      <label for="stock_change">Quantity to {{mode === 'add' ? 'add' : 'deduct'}}:</label>
+      <input class="form-control form-control-sm" formControlName="changeValue" id="stock_change" type="number">
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button (click)="dismiss()" *ngIf="!isUpdating" class="btn btn-sm btn-danger">Cancel</button>
+  <button *ngIf="!isUpdating" class="btn btn-sm btn-primary" form="stockChangeForm">Update Stock</button>
+  <div>
+    <fa-icon *ngIf="isUpdating" [icon]="faSpinner" [spin]="true"></fa-icon>
+  </div>
+</div>
