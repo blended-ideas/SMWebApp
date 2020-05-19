@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {faSpinner} from '@fortawesome/free-solid-svg-icons';
+import {ProductExpiryDateInterface} from '../../interfaces/product.interface';
+import {HttpParams} from '@angular/common/http';
+import {ProductService} from '../../services/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,11 +10,36 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  faSpinner = faSpinner;
 
-  constructor() {
+  productExpiryDatePaginationHelper = {
+    currentPage: 1,
+    pageSize: 5,
+    totalSize: 0,
+  };
+  productExpiryLoading: boolean;
+  productExpiryDates: ProductExpiryDateInterface[];
+
+  constructor(private productService: ProductService) {
   }
 
   ngOnInit(): void {
+    this.getProductExpiryDates(1);
   }
 
+  getProductExpiryDates(pageNumber: number) {
+    this.productExpiryDatePaginationHelper.currentPage = pageNumber;
+    const params = new HttpParams()
+      .set('page', this.productExpiryDatePaginationHelper.currentPage.toString())
+      .set('page_size', this.productExpiryDatePaginationHelper.pageSize.toString())
+      .set('after_today', 'true');
+    this.productExpiryLoading = true;
+    this.productService.getProductExpiryDates(params).subscribe(response => {
+      this.productExpiryLoading = false;
+      this.productExpiryDates = response.results;
+      this.productExpiryDatePaginationHelper.totalSize = response.count;
+    }, () => {
+      this.productExpiryLoading = false;
+    });
+  }
 }

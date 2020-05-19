@@ -1,1 +1,42 @@
-<p>dashboard works!</p>
+<div class="px-2 mt-4">
+  <div class="row">
+    <div class="col-12 col-sm-5">
+      <div class="card">
+        <div class="card-header d-block d-sm-flex justify-content-between">
+          <div>Products Expiring over next 10 days:</div>
+        </div>
+        <div class="card-body p-0">
+          <div *ngIf="productExpiryLoading" class="text-center my-2">
+            <fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
+          </div>
+          <table *ngIf="!productExpiryLoading" class="table table-sm table-striped mb-0">
+            <thead>
+            <tr>
+              <td class="border-top-0">Product</td>
+              <td class="border-top-0">Expiry Date</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ped of productExpiryDates">
+              <td>{{ped.product_name}}</td>
+              <td>{{ped.datetime|date: 'dd/MM/yyyy'}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer d-flex">
+          <ngb-pagination
+            (pageChange)="getProductExpiryDates($event)"
+            [collectionSize]="productExpiryDatePaginationHelper.totalSize"
+            [directionLinks]="true"
+            [disabled]="productExpiryLoading"
+            [maxSize]="5"
+            [pageSize]="productExpiryDatePaginationHelper.pageSize"
+            [page]="productExpiryDatePaginationHelper.currentPage"
+            [size]="'sm'"
+            class="ml-auto"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

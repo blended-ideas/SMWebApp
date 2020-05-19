@@ -24,7 +24,7 @@ export class ViewProductComponent implements OnInit {
 
   productStockChangePaginationHelper = {
     currentPage: 1,
-    pageSize: 5,
+    pageSize: 10,
     totalSize: 0,
   };
   productStockChangeLoading: boolean;
@@ -80,11 +80,11 @@ export class ViewProductComponent implements OnInit {
   }
 
   getProductExpiryDates(page: number) {
-    this.productStockChangePaginationHelper.currentPage = page;
+    this.productExpiryDatePaginationHelper.currentPage = page;
     const params = new HttpParams()
       .set('product', this.product.id)
-      .set('page', this.productStockChangePaginationHelper.currentPage.toString())
-      .set('page_size', this.productStockChangePaginationHelper.pageSize.toString())
+      .set('page', this.productExpiryDatePaginationHelper.currentPage.toString())
+      .set('page_size', this.productExpiryDatePaginationHelper.pageSize.toString())
       .set('after_today', 'true');
     this.productExpiryLoading = true;
     this.productService.getProductExpiryDates(params).subscribe(response => {

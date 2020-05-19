@@ -5,17 +5,8 @@ $theme-colors: (
   "blue": #007BFF,
 );
 
-// Custom Buttons
-//$btn-padding-y: .25rem !default;
-//$btn-padding-x: .5rem !default;
-//$btn-font-family: null !default;
-//$btn-focus-width: .2rem !default;
-//
-//$btn-padding-y-sm: .15rem !default;
-//$btn-padding-x-sm: .375rem !default;
-//
-//$btn-padding-y-lg: .375rem !default;
-//$btn-padding-x-lg: .75rem !default;
+$card-cap-bg: #fff;
+$card-cap-bg: #fff;
 
 .dropdown-toggle::after {
   display: none !important;

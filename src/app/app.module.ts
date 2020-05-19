@@ -13,7 +13,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {HeaderComponent} from './components/layout/header/header.component';
 import {SidebarComponent} from './components/layout/sidebar/sidebar.component';
 import {BaseViewComponent} from './components/layout/base-view/base-view.component';
-import {NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbCollapseModule, NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
 
 @NgModule({
@@ -34,7 +34,8 @@ import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
     ReactiveFormsModule,
     NgbDropdownModule,
     NgbCollapseModule,
-    NgBootstrapFormValidationModule.forRoot()
+    NgBootstrapFormValidationModule.forRoot(),
+    NgbPaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true},
