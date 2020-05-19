@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <div>Add Expiry date for {{product.name}}</div>
+</div>
+
+<div class="modal-body">
+  <form (validSubmit)="addExpiry()" [formGroup]="expiryForm" id="stockChangeForm">
+    <div class="form-group d-flex justify-content-center">
+      <div class="d-flex flex-column">
+        <label for="datetime">Expiry Date</label>
+        <ngb-datepicker [firstDayOfWeek]="0" [minDate]="minDate" class="p-0" formControlName="datetime"
+                        id="datetime"></ngb-datepicker>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button (click)="dismiss()" *ngIf="!isAdding" class="btn btn-sm btn-danger">Cancel</button>
+  <button *ngIf="!isAdding" class="btn btn-sm btn-primary" form="stockChangeForm">Update Stock</button>
+  <div>
+    <fa-icon *ngIf="isAdding" [icon]="faSpinner" [spin]="true"></fa-icon>
+  </div>
+</div>

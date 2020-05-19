@@ -7,9 +7,10 @@ import {ListProductComponent} from './components/list-product/list-product.compo
 import {CreateProductComponent} from './components/create-product/create-product.component';
 import {ViewProductComponent} from './components/view-product/view-product.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {PipeModule} from '../pipe/pipe.module';
 import {AddRemoveStockComponent} from './components/add-remove-stock/add-remove-stock.component';
+import {AddExpiryDateComponent} from './components/add-expiry-date/add-expiry-date.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {AddRemoveStockComponent} from './components/add-remove-stock/add-remove-
     ListProductComponent,
     CreateProductComponent,
     ViewProductComponent,
-    AddRemoveStockComponent
+    AddRemoveStockComponent,
+    AddExpiryDateComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import {AddRemoveStockComponent} from './components/add-remove-stock/add-remove-
     NgbPaginationModule,
     NgbDropdownModule,
     PipeModule,
+    NgbDatepickerModule,
   ]
 })
 export class ProductModule {

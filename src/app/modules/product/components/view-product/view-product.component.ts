@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductInterface, ProductStockChangeInterface} from '../../../../interfaces/product.interface';
+import {ProductExpiryDateInterface, ProductInterface, ProductStockChangeInterface} from '../../../../interfaces/product.interface';
 import {faEdit, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../../../services/product.service';
@@ -7,6 +7,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddRemoveStockComponent} from '../add-remove-stock/add-remove-stock.component';
 import {SessionService} from '../../../../services/session.service';
 import {HttpParams} from '@angular/common/http';
+import {AddExpiryDateComponent} from '../add-expiry-date/add-expiry-date.component';
 
 @Component({
   selector: 'app-view-product',
@@ -26,7 +27,16 @@ export class ViewProductComponent implements OnInit {
     pageSize: 5,
     totalSize: 0,
   };
+  productStockChangeLoading: boolean;
   productStockChanges: ProductStockChangeInterface[];
+
+  productExpiryDatePaginationHelper = {
+    currentPage: 1,
+    pageSize: 5,
+    totalSize: 0,
+  };
+  productExpiryLoading: boolean;
+  productExpiryDates: ProductExpiryDateInterface[];
 
   constructor(private route: ActivatedRoute,
               private modalService: NgbModal,
@@ -53,26 +63,58 @@ export class ViewProductComponent implements OnInit {
     });
   }
 
-  private getProductStockChanges(page: number) {
+  getProductStockChanges(page: number) {
     this.productStockChangePaginationHelper.currentPage = page;
     const params = new HttpParams()
       .set('product', this.product.id)
       .set('page', this.productStockChangePaginationHelper.currentPage.toString())
       .set('page_size', this.productStockChangePaginationHelper.pageSize.toString());
+    this.productStockChangeLoading = true;
     this.productService.getProductStockChanges(params).subscribe(response => {
+      this.productStockChangeLoading = false;
       this.productStockChanges = response.results;
       this.productStockChangePaginationHelper.totalSize = response.count;
+    }, () => {
+      this.productStockChangeLoading = false;
+    });
+  }
+
+  getProductExpiryDates(page: number) {
+    this.productStockChangePaginationHelper.currentPage = page;
+    const params = new HttpParams()
+      .set('product', this.product.id)
+      .set('page', this.productStockChangePaginationHelper.currentPage.toString())
+      .set('page_size', this.productStockChangePaginationHelper.pageSize.toString())
+      .set('after_today', 'true');
+    this.productExpiryLoading = true;
+    this.productService.getProductExpiryDates(params).subscribe(response => {
+      this.productExpiryLoading = false;
+      this.productExpiryDates = response.results;
+      this.productExpiryDatePaginationHelper.totalSize = response.count;
+    }, () => {
+      this.productExpiryLoading = false;
+    });
+  }
+
+  addExpiryDate() {
+    const modal = this.modalService.open(AddExpiryDateComponent);
+    modal.componentInstance.product = this.product;
+    modal.result.then((response: ProductExpiryDateInterface) => {
+      this.getProductExpiryDates(1);
+    }, () => {
     });
   }
 
   private fetchProduct(productId: string) {
     this.isLoading = true;
 
-    this.productService.getProductById(productId).subscribe(response => {
-      this.product = response;
-      this.isLoading = false;
-      this.allowEdit = this.sessionService.isAdmin() || this.sessionService.isAuditor();
-      this.getProductStockChanges(1);
-    });
+    this.productService.getProductById(productId)
+      .subscribe(response => {
+        this.product = response;
+        this.isLoading = false;
+        this.allowEdit = this.sessionService.isAdmin() || this.sessionService.isAuditor();
+        this.getProductStockChanges(1);
+        this.getProductExpiryDates(1);
+      });
   }
 }
