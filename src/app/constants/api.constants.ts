@@ -25,5 +25,6 @@ export const SHIFT_APIS = {
 };
 
 export const REPORT_APIS = {
-  daily: environment.base_url + 'reports/daily_margin/'
+  daily: environment.base_url + 'reports/daily_margin/',
+  dashboard_sales: environment.base_url + 'reports/dashboard/sales/'
 };

@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {NgbDate, NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {faCalendar, faSpinner} from '@fortawesome/free-solid-svg-icons';
-import {ReportService} from '../../../../service/report.service';
+import {ReportService} from '../../../../services/report.service';
 import {HttpParams} from '@angular/common/http';
 import {MarginInterface} from '../../../../interfaces/margin.interface';
 
