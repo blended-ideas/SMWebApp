@@ -9,7 +9,7 @@
           <div *ngIf="productExpiryLoading" class="text-center my-2">
             <fa-icon [icon]="faSpinner" [spin]="true" size="2x"></fa-icon>
           </div>
-          <table *ngIf="!productExpiryLoading" class="table table-sm table-striped mb-0">
+          <table *ngIf="!productExpiryLoading" class="table table-striped mb-0">
             <thead>
             <tr>
               <td class="border-top-0">Product</td>
@@ -24,7 +24,13 @@
             </tbody>
           </table>
         </div>
-        <div class="card-footer d-flex">
+        <div class="card-footer d-flex justify-content-between">
+          <button (click)="downloadExpiryReport()" *ngIf="!isReportDownloading"
+                  class="btn btn-sm btn-outline-primary">Download
+          </button>
+          <div *ngIf="isReportDownloading">
+            <fa-icon [icon]="faSpinner" [spin]="true"></fa-icon>
+          </div>
           <ngb-pagination
             (pageChange)="getProductExpiryDates($event)"
             [collectionSize]="productExpiryDatePaginationHelper.totalSize"
@@ -33,8 +39,7 @@
             [maxSize]="5"
             [pageSize]="productExpiryDatePaginationHelper.pageSize"
             [page]="productExpiryDatePaginationHelper.currentPage"
-            [size]="'sm'"
-            class="ml-auto"></ngb-pagination>
+            [size]="'sm'"></ngb-pagination>
         </div>
       </div>
     </div>

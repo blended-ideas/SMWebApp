@@ -3,6 +3,8 @@ import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {ProductExpiryDateInterface} from '../../interfaces/product.interface';
 import {HttpParams} from '@angular/common/http';
 import {ProductService} from '../../services/product.service';
+import {ReportService} from '../../services/report.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +22,11 @@ export class DashboardComponent implements OnInit {
   productExpiryLoading: boolean;
   productExpiryDates: ProductExpiryDateInterface[];
 
-  constructor(private productService: ProductService) {
+  isReportDownloading: boolean;
+
+  constructor(private productService: ProductService,
+              private location: Location,
+              private reportService: ReportService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +46,17 @@ export class DashboardComponent implements OnInit {
       this.productExpiryDatePaginationHelper.totalSize = response.count;
     }, () => {
       this.productExpiryLoading = false;
+    });
+  }
+
+  downloadExpiryReport() {
+    const NO_DAYS = 10;
+    this.isReportDownloading = true;
+    this.reportService.downloadExpiryReport(NO_DAYS).subscribe(response => {
+      window.open(response.file, '_blank');
+      this.isReportDownloading = false;
+    }, () => {
+      this.isReportDownloading = false;
     });
   }
 }
