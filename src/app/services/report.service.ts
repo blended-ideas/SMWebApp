@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {REPORT_APIS} from '../constants/api.constants';
 import {Observable} from 'rxjs';
 import {MarginInterface} from '../interfaces/margin.interface';
-import {ExpiryReportInterface} from '../interfaces/report.interface';
+import {ExpiryReportInterface, SalesReportInterface} from '../interfaces/report.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,13 @@ export class ReportService {
 
   downloadExpiryReport(days: number): Observable<ExpiryReportInterface> {
     return this.httpClient.post<ExpiryReportInterface>(REPORT_APIS.product_expiry_report, {days});
+  }
+
+  downloadSalesReport(postObj: object): Observable<SalesReportInterface> {
+    return this.httpClient.post<SalesReportInterface>(REPORT_APIS.sales_report, postObj);
+  }
+
+  downloadMarginReport(postObj: object): Observable<SalesReportInterface> {
+    return this.httpClient.post<SalesReportInterface>(REPORT_APIS.margin_report, postObj);
   }
 }

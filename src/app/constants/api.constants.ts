@@ -28,4 +28,6 @@ export const REPORT_APIS = {
   daily: environment.base_url + 'reports/daily_margin/',
   dashboard_sales: environment.base_url + 'reports/dashboard/sales/',
   product_expiry_report: environment.base_url + 'reports/product_expiry_report/',
+  sales_report: environment.base_url + 'reports/sales_report/',
+  margin_report: environment.base_url + 'reports/margin_report/',
 };

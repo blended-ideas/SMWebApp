@@ -20,26 +20,34 @@
 
 <div *ngIf="margin && !isLoading" class="data_wrapper">
   <app-margin-card
+    [date_string]="selectedDay.toISOString()"
     [marginData]="margin.daily_margin"
     [substring]="dayString"
+    report_type="DAILY"
     title="Day Margin">
   </app-margin-card>
 
   <app-margin-card
+    [date_string]="selectedDay.toISOString()"
     [marginData]="margin.weekly_margin"
     [substring]="weekString"
+    report_type="WEEKLY"
     title="Weekly Margin">
   </app-margin-card>
 
   <app-margin-card
+    [date_string]="selectedDay.toISOString()"
     [marginData]="margin.monthly_margin"
     [substring]="monthString"
+    report_type="MONTHLY"
     title="Monthly Margin">
   </app-margin-card>
 
   <app-margin-card
+    [date_string]="selectedDay.toISOString()"
     [marginData]="margin.quarterly_margin"
     [substring]="quarterString"
+    report_type="QUARTERLY"
     title="Quarterly Margin">
   </app-margin-card>
 </div>

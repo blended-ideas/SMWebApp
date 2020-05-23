@@ -1,13 +1,12 @@
 <div class="card mt-2">
-  <div class="row no-gutters">
-    <div class="col-sm-5 col-12 d-flex justify-content-center align-items-center">
-      <div class="card-body">
+  <div class="card-body">
+    <div class="row no-gutters">
+      <div class="col-sm-5 col-12">
         <h4>{{title}}</h4>
         <p>{{substring}}</p>
       </div>
-    </div>
-    <div class="col-sm-7 col-12">
-      <div class="card-body">
+
+      <div class="col-sm-7 col-12">
         <div class="row">
           <div class="col-6"><h6>Total Sales:</h6></div>
           <div class="col-6">{{marginData.price_total|inr}}</div>
@@ -21,6 +20,20 @@
           <div class="col-6">{{marginData.distributor_margin_total|inr}}</div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="card-footer justify-content-around d-block d-sm-flex">
+    <div class="text-center w-100">
+      <fa-icon *ngIf="isSalesReportLoading" [icon]="faSpinner" [spin]="true"></fa-icon>
+      <button (click)="downloadSalesReport()" *ngIf="!isSalesReportLoading"
+              class="btn btn-sm btn-outline-primary">Download Sales Report
+      </button>
+    </div>
+    <div class="text-center w-100 mt-2 mt-sm-0">
+      <fa-icon *ngIf="isMarginReportLoading" [icon]="faSpinner" [spin]="true"></fa-icon>
+      <button (click)="downloadMarginReport()" *ngIf="!isMarginReportLoading"
+              class="btn btn-sm btn-outline-primary">Download Margin Report
+      </button>
     </div>
   </div>
 </div>
