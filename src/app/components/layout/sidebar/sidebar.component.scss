@@ -24,6 +24,7 @@
 
     .sidebar__nav_link {
       text-decoration: none;
+      outline: none;
       color: var(--white);
 
       &.active {
