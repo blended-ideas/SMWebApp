@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionService} from '../../../services/session.service';
+import {faFileExcel, faPenAlt, faShoppingCart} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,6 +9,10 @@ import {SessionService} from '../../../services/session.service';
 })
 export class SidebarComponent implements OnInit {
   viewMargin: boolean;
+
+  faShoppingCart = faShoppingCart;
+  faPenAlt = faPenAlt;
+  faFileExcel = faFileExcel;
 
   constructor(private sessionService: SessionService) {
   }

@@ -1,13 +1,22 @@
 <div class="sidebar h-100 py-2">
   <ul class="sidebar__nav_list">
     <li [routerLink]="['/product']" class="sidebar__nav_item">
-      <a [routerLink]="['/product']" class="sidebar__nav_link" routerLinkActive="active">Products</a>
+      <a [routerLink]="['/product']" class="sidebar__nav_link" routerLinkActive="active">
+        <fa-icon [icon]="faShoppingCart"></fa-icon>&nbsp;
+        <span class="d-none d-sm-inline">Products</span>
+      </a>
     </li>
     <li [routerLink]="['/shift']" class="sidebar__nav_item">
-      <a [routerLink]="['/shift']" class="sidebar__nav_link" routerLinkActive="active">Shifts</a>
+      <a [routerLink]="['/shift']" class="sidebar__nav_link" routerLinkActive="active">
+        <fa-icon [icon]="faPenAlt"></fa-icon>&nbsp;
+        <span class="d-none d-sm-inline">Shifts</span>
+      </a>
     </li>
     <li [routerLink]="['/margin']" class="sidebar__nav_item">
-      <a [routerLink]="['/margin']" class="sidebar__nav_link" routerLinkActive="active">Margin</a>
+      <a [routerLink]="['/margin']" class="sidebar__nav_link" routerLinkActive="active">
+        <fa-icon [icon]="faFileExcel"></fa-icon>&nbsp;
+        <span class="d-none d-sm-inline">Margin</span>
+      </a>
     </li>
   </ul>
 </div>

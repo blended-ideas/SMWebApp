@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {UserInterface, UserRoleInterface} from '../interfaces/user.interface';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {shareReplay} from 'rxjs/operators';
 import {USER_APIS} from '../constants/api.constants';
 
@@ -19,8 +19,8 @@ export class UserService {
     return this._getRoles;
   }
 
-  getUsers(): Observable<UserInterface[]> {
-    return this.httpClient.get<UserInterface[]>(USER_APIS.user);
+  getUsers(params?: HttpParams): Observable<UserInterface[]> {
+    return this.httpClient.get<UserInterface[]>(USER_APIS.user, {params});
   }
 
   createUser(postObj: object): Observable<UserInterface> {
@@ -31,4 +31,7 @@ export class UserService {
     return this.httpClient.patch<UserInterface>(`${USER_APIS.user}${id}/`, postObj);
   }
 
+  updateUserPassword(id: number, postObj: object): Observable<any> {
+    return this.httpClient.post(`${USER_APIS.user}${id}/${USER_APIS.update_user_password}`, postObj);
+  }
 }

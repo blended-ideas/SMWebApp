@@ -8,6 +8,7 @@ export const USER_APIS = {
   user: environment.base_url + 'users/user/',
   roles: environment.base_url + 'users/roles/',
   change_password: 'change_password/',
+  update_user_password: 'update_user_password/',
 };
 
 export const PRODUCT_APIS = {

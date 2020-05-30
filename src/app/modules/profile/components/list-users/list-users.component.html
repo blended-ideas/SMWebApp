@@ -22,7 +22,10 @@
                   class="badge mr-1">
             {{role.name}}
             </span>
-            <fa-icon (click)="openEdit(user)" [icon]="faEdit"></fa-icon>
+            <fa-icon (click)="openEdit(user)" [icon]="faEdit" class="ml-2 ml-sm-4 clickable" ngbPopover="Edit"
+                     triggers="mouseenter:mouseleave"></fa-icon>
+            <fa-icon (click)="changeUserPassword(user)" [icon]="faKey" class="ml-2 ml-sm-4 clickable"
+                     ngbPopover="Change Password" triggers="mouseenter:mouseleave"></fa-icon>
           </div>
         </li>
       </ul>

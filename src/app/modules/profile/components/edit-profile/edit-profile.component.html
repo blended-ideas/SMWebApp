@@ -1,1 +1,28 @@
-<p>edit-profile works!</p>
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div class="card cardWrapper">
+    <div class="card-body">
+      <h2 class="text-center">Edit Profile</h2>
+      <form [formGroup]="profileForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control" formControlName="name" id="name" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="username">Login ID</label>
+          <input class="form-control" formControlName="username" id="username" type="text">
+          <span class="text-muted small">
+            <fa-icon [icon]="faInfoCircle"></fa-icon> Should start with alphabet, can contain only Alphabets and digits.
+          </span>
+        </div>
+
+        <div class="text-center">
+          <fa-icon *ngIf="isProfileLoading" [icon]="faSpinner" class="text-primary" size="2x" spin="true"></fa-icon>
+          <button (click)="onUpdate()" *ngIf="!isProfileLoading" class="btn btn-primary btn-block">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -8,16 +8,19 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ManageUserComponent} from './components/manage-user/manage-user.component';
 import {ListUsersComponent} from './components/list-users/list-users.component';
 import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
+import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
+import {ChangeUserPasswordComponent} from './components/change-user-password/change-user-password.component';
 
 
 @NgModule({
-  declarations: [EditProfileComponent, ChangePasswordComponent, ManageUserComponent, ListUsersComponent],
+  declarations: [EditProfileComponent, ChangePasswordComponent, ManageUserComponent, ListUsersComponent, ChangeUserPasswordComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    NgBootstrapFormValidationModule
+    NgBootstrapFormValidationModule,
+    NgbPopoverModule
   ]
 })
 export class ProfileModule {

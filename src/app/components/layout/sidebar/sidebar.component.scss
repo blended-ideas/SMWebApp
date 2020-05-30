@@ -1,5 +1,4 @@
 .sidebar {
-  min-width: 150px;
   max-width: 200px;
 
   min-height: calc(100vh - 40px);
@@ -31,5 +30,11 @@
         color: var(--teal);
       }
     }
+  }
+}
+
+@media (min-width: 542px) {
+  .sidebar {
+    min-width: 150px;
   }
 }

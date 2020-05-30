@@ -4,6 +4,7 @@ import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
 import {delay} from 'rxjs/operators';
 import {AuthenticationService} from '../../services/authentication.service';
+import {APP_NAME} from '../../constants/app.constants';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
     errorMessage: '',
     hasError: false
   };
+  app_title = APP_NAME;
   private returnUrl: string;
 
   constructor(private fb: FormBuilder,
