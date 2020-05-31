@@ -57,11 +57,11 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-8">
+    <div class="col-12 col-sm-8 mt-4 mt-sm-0">
       <div class="card h-100">
         <div class="card-header d-block d-sm-flex justify-content-between">
           <div>Stock Changes</div>
-          <div class="btn-group btn-group-sm">
+          <div *ngIf="allowStockChange" class="btn-group btn-group-sm">
             <button (click)="addRemoveStock('add')" class="btn btn-sm btn-outline-primary">Add Stock</button>
             <button (click)="addRemoveStock('remove')" class="btn btn-sm btn-outline-primary">Remove Stock</button>
           </div>
@@ -108,7 +108,7 @@
   <div class="row mt-4">
     <div class="col-12 col-sm-5">
       <div class="card">
-        <div class="card-header d-block d-sm-flex justify-content-between">
+        <div class="card-header d-flex justify-content-between">
           <div>Upcoming Expiry Dates</div>
           <button (click)="addExpiryDate()" class="btn btn-sm btn-outline-primary">Add Date</button>
         </div>
@@ -146,7 +146,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-sm-7">
+    <div class="col-12 col-sm-7 mt-4 mt-sm-0 d-none">
       <div class="card h-100">
         <div class="card-body">
           Last 7 Day Sales Data for Product

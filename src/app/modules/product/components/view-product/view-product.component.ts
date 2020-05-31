@@ -38,6 +38,8 @@ export class ViewProductComponent implements OnInit {
   productExpiryLoading: boolean;
   productExpiryDates: ProductExpiryDateInterface[];
 
+  allowStockChange: boolean;
+
   constructor(private route: ActivatedRoute,
               private modalService: NgbModal,
               private sessionService: SessionService,
@@ -48,6 +50,8 @@ export class ViewProductComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.fetchProduct(paramMap.get('productId'));
     });
+
+    this.allowStockChange = this.sessionService.isAdmin() || this.sessionService.isAuditor();
   }
 
   addRemoveStock(action: 'add' | 'remove') {
