@@ -16,7 +16,7 @@
 
 <div class="modal-footer">
   <button (click)="dismiss()" *ngIf="!isAdding" class="btn btn-sm btn-danger">Cancel</button>
-  <button *ngIf="!isAdding" class="btn btn-sm btn-primary" form="stockChangeForm">Update Stock</button>
+  <button *ngIf="!isAdding" class="btn btn-sm btn-primary" form="stockChangeForm">Add Expiry Date</button>
   <div>
     <fa-icon *ngIf="isAdding" [icon]="faSpinner" [spin]="true"></fa-icon>
   </div>
