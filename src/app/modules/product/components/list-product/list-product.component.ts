@@ -54,6 +54,7 @@ export class ListProductComponent implements OnInit {
     totalSize: 0
   };
   viewEdit: boolean;
+  allowCreate: boolean;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute,
@@ -68,6 +69,7 @@ export class ListProductComponent implements OnInit {
     });
 
     this.viewEdit = this.sessionService.isAdmin() || this.sessionService.isAuditor();
+    this.allowCreate = this.sessionService.isAdmin() || this.sessionService.isAuditor();
   }
 
   changeQueryParam(paramType: 'search' | 'sort' | 'page', paramValue: string | number) {

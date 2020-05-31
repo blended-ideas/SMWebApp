@@ -12,7 +12,7 @@
         <span class="d-none d-sm-inline">Shifts</span>
       </a>
     </li>
-    <li [routerLink]="['/margin']" class="sidebar__nav_item">
+    <li *ngIf="viewMargin" [routerLink]="['/margin']" class="sidebar__nav_item">
       <a [routerLink]="['/margin']" class="sidebar__nav_link" routerLinkActive="active">
         <fa-icon [icon]="faFileExcel"></fa-icon>&nbsp;
         <span class="d-none d-sm-inline">Margin</span>

@@ -1,7 +1,8 @@
 <div class="app-page-title align-items-center">
   <h3>Product/Service</h3>
   <div class="ml-auto">
-    <button [routerLink]="['/product', 'create']" class="btn btn-sm btn-primary" type="button">
+    <button *ngIf="allowCreate" [routerLink]="['/product', 'create']" class="btn btn-sm btn-primary"
+            type="button">
       <fa-icon [icon]="faPlusSquare"></fa-icon>
       Create
     </button>
