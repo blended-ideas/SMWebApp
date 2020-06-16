@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary py-0">
   <div [routerLink]="['/dashboard']" class="navbar-brand">
-    <img alt="Mahamane Services" class="custom_logo_brand" src="assets/logos/logo_rect_kannada.jpeg">
+    <img alt="Mahamane Services" class="custom_logo_brand mr-2" src="assets/logos/logo_square_kannada.jpeg">
+    <span> {{app_name}} </span>
   </div>
   <button (click)="isMenuCollapsed = !isMenuCollapsed"
           [attr.aria-expanded]="!isMenuCollapsed" aria-controls="navbarContent" aria-label="Toggle navigation"

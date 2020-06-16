@@ -7,6 +7,8 @@ import {Observable} from 'rxjs';
 import {Location} from '@angular/common';
 import {faEdit, faPlusSquare, faSpinner, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FileUploadService} from '../../../../services/file-upload.service';
+import {PRODUCT_APIS} from '../../../../constants/api.constants';
 
 @Component({
   selector: 'app-create-product',
@@ -26,10 +28,16 @@ export class CreateProductComponent implements OnInit {
   mode: 'create' | 'edit' = 'create';
   product: ProductInterface;
 
+  imageUrl: string | ArrayBuffer = 'https://bulma.io/images/placeholders/480x480.png';
+  isUploadingFile = false;
+  private uploadFile: File;
+
+
   constructor(private fb: FormBuilder,
               private sessionService: SessionService,
               private location: Location,
               private route: ActivatedRoute,
+              private fileUploadService: FileUploadService,
               private router: Router,
               private productService: ProductService) {
   }
@@ -61,7 +69,17 @@ export class CreateProductComponent implements OnInit {
     if (this.mode === 'create') {
       apiCall = this.productService.createProducts(postObj);
     } else {
-      apiCall = this.productService.updateProduct(this.product.id, postObj);
+      if (this.uploadFile) {
+        apiCall = this.fileUploadService.uploadFile<ProductInterface>(
+          'patch',
+          PRODUCT_APIS.product + this.product.id + '/',
+          this.uploadFile,
+          postObj,
+          'image'
+        );
+      } else {
+        apiCall = this.productService.updateProduct(this.product.id, postObj);
+      }
     }
     apiCall.subscribe(response => {
       alert(successMessage);
@@ -77,6 +95,23 @@ export class CreateProductComponent implements OnInit {
       alert(errStr);
       this.isCreating = false;
     });
+  }
+
+  onFileInputChange(file: File) {
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Maximum allowed file: 2MB');
+        return;
+      }
+
+      this.uploadFile = file;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = event => {
+        this.imageUrl = reader.result;
+      };
+    }
   }
 
   private buildForm() {
