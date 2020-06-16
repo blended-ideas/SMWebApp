@@ -17,7 +17,12 @@
     <div class="col-12 col-sm-4">
       <div *ngIf="product" class="card h-100">
         <div class="card-header">
-          Product Details
+          <div *ngIf="product.image" class="text-center">
+            <img [alt]="product.name" [src]="product.image" class="product-img-custom">
+          </div>
+          <div *ngIf="!product.image">
+            Product Details
+          </div>
         </div>
         <div class="card-body">
           <div class="row mb-2">
