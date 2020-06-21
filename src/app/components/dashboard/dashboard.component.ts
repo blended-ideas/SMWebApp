@@ -38,7 +38,8 @@ export class DashboardComponent implements OnInit {
     const params = new HttpParams()
       .set('page', this.productExpiryDatePaginationHelper.currentPage.toString())
       .set('page_size', this.productExpiryDatePaginationHelper.pageSize.toString())
-      .set('after_today', 'true');
+      .set('after_today', 'true')
+      .set('home_display', 'true');
     this.productExpiryLoading = true;
     this.productService.getProductExpiryDates(params).subscribe(response => {
       this.productExpiryLoading = false;
