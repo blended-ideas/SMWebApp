@@ -35,6 +35,7 @@ export interface ProductStockChangeInterface {
 
 
 export interface ProductExpiryDateInterface {
+  id: number;
   user: number;
   user_name: string;
 

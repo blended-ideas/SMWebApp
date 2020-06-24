@@ -8,6 +8,7 @@ import {AddRemoveStockComponent} from '../add-remove-stock/add-remove-stock.comp
 import {SessionService} from '../../../../services/session.service';
 import {HttpParams} from '@angular/common/http';
 import {AddExpiryDateComponent} from '../add-expiry-date/add-expiry-date.component';
+import {EditExpiryDateComponent} from '../../edit-expiry-date/edit-expiry-date.component';
 
 @Component({
   selector: 'app-view-product',
@@ -103,8 +104,18 @@ export class ViewProductComponent implements OnInit {
   addExpiryDate() {
     const modal = this.modalService.open(AddExpiryDateComponent);
     modal.componentInstance.product = this.product;
-    modal.result.then((response: ProductExpiryDateInterface) => {
+    modal.result.then(() => {
       this.getProductExpiryDates(1);
+    }, () => {
+    });
+  }
+
+  editExpiryDate(ped: ProductExpiryDateInterface) {
+    const modal = this.modalService.open(EditExpiryDateComponent);
+    modal.componentInstance.productExpiryDate = ped;
+    modal.componentInstance.product = this.product;
+    modal.result.then((response: ProductExpiryDateInterface) => {
+      ped.datetime = response.datetime;
     }, () => {
     });
   }

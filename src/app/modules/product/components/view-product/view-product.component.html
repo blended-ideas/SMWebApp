@@ -132,6 +132,9 @@
             <tr *ngFor="let ped of productExpiryDates">
               <td>{{ped.user_name}}</td>
               <td>{{ped.datetime|date: 'dd/MM/yyyy'}}</td>
+              <td>
+                <fa-icon (click)="editExpiryDate(ped)" [icon]="faEdit"></fa-icon>
+              </td>
             </tr>
             </tbody>
           </table>

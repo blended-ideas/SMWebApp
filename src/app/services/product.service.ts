@@ -58,4 +58,8 @@ export class ProductService {
   postExpiry(postObj): Observable<ProductExpiryDateInterface> {
     return this.httpClient.post<ProductExpiryDateInterface>(PRODUCT_APIS.product_expiry, postObj);
   }
+
+  patchExpiry(id: number, patchData: object): Observable<ProductExpiryDateInterface> {
+    return this.httpClient.patch<ProductExpiryDateInterface>(PRODUCT_APIS.product_expiry + id.toString() + '/', patchData);
+  }
 }

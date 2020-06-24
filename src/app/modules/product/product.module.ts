@@ -11,6 +11,7 @@ import {NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule} from '@ng-b
 import {PipeModule} from '../pipe/pipe.module';
 import {AddRemoveStockComponent} from './components/add-remove-stock/add-remove-stock.component';
 import {AddExpiryDateComponent} from './components/add-expiry-date/add-expiry-date.component';
+import {EditExpiryDateComponent} from './edit-expiry-date/edit-expiry-date.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {AddExpiryDateComponent} from './components/add-expiry-date/add-expiry-da
     CreateProductComponent,
     ViewProductComponent,
     AddRemoveStockComponent,
-    AddExpiryDateComponent
+    AddExpiryDateComponent,
+    EditExpiryDateComponent
   ],
   imports: [
     CommonModule,
