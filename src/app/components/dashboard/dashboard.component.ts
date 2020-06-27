@@ -50,10 +50,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  downloadExpiryReport() {
+  downloadExpiryReport(downloadAll: boolean) {
     const NO_DAYS = 10;
     this.isReportDownloading = true;
-    this.reportService.downloadExpiryReport(NO_DAYS).subscribe(response => {
+    this.reportService.downloadExpiryReport(NO_DAYS, downloadAll).subscribe(response => {
       window.open(response.file, '_blank');
       this.isReportDownloading = false;
     }, () => {

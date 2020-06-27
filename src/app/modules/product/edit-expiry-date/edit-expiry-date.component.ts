@@ -51,6 +51,6 @@ export class EditExpiryDateComponent implements OnInit {
   }
 
   dismiss() {
-    this.modal.close();
+    this.modal.dismiss();
   }
 }

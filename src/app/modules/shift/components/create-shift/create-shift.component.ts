@@ -10,6 +10,9 @@ import {HttpParams} from '@angular/common/http';
 import {ProductService} from '../../../../services/product.service';
 import {SessionService} from '../../../../services/session.service';
 import {ShiftService} from '../../../../services/shift.service';
+import {SHIFT_TIMINGS, ShiftSelectionInterface} from '../../../../constants/shift.constants';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-create-shift',
@@ -27,6 +30,13 @@ export class CreateShiftComponent implements OnInit {
 
   today = new Date();
   maxDate: NgbDateStruct;
+  shiftDate: NgbDateStruct;
+  SHIFT_TIMINGS = SHIFT_TIMINGS;
+  selectedShiftTiming = SHIFT_TIMINGS[0];
+  shiftView: {
+    startTime: Date
+    endTime: Date
+  };
 
   products: Observable<ProductInterface[]>;
   productSearchString = new Subject<string>();
@@ -49,7 +59,13 @@ export class CreateShiftComponent implements OnInit {
       month: this.today.getMonth() + 1,
       day: this.today.getDate()
     };
+    this.shiftDate = {
+      year: this.today.getFullYear(),
+      month: this.today.getMonth() + 1,
+      day: this.today.getDate()
+    };
     this.productSearchInit();
+    this.shiftChange(this.shiftDate, this.selectedShiftTiming);
   }
 
   productSearchInit() {
@@ -80,35 +96,21 @@ export class CreateShiftComponent implements OnInit {
 
   createShift() {
     const formValue = this.shiftForm.getRawValue();
-    const start_dt = new Date(
-      formValue.start_date.year,
-      formValue.start_date.month - 1,
-      formValue.start_date.day,
-      formValue.start_time.hour,
-      formValue.start_time.minute
-    );
-    const end_dt = new Date(
-      formValue.end_date.year,
-      formValue.end_date.month - 1,
-      formValue.end_date.day,
-      formValue.end_time.hour,
-      formValue.end_time.minute
-    );
     const dateNow = new Date();
 
-    if (start_dt > end_dt) {
+    if (this.shiftView.startTime > this.shiftView.endTime) {
       alert('End date/time cannot be less than start date/time');
       return;
     }
-    if (dateNow < start_dt || dateNow < end_dt) {
+    if (dateNow < this.shiftView.startTime || dateNow < this.shiftView.endTime) {
       alert('Start date and end date should be greater than current date-time');
       return;
     }
 
     const postObj = {
       user: this.sessionService.user.id,
-      start_dt: start_dt.toISOString(),
-      end_dt: end_dt.toISOString(),
+      start_dt: this.shiftView.startTime.toISOString(),
+      end_dt: this.shiftView.endTime.toISOString(),
       entries: formValue.entries.map(e => ({product: e.product.id, quantity: e.quantity}))
     };
 
@@ -138,6 +140,21 @@ export class CreateShiftComponent implements OnInit {
 
   getProductControls() {
     return (this.shiftForm.controls.entries as FormArray).controls;
+  }
+
+  shiftChange(dateStruct: NgbDateStruct, shiftTime: ShiftSelectionInterface) {
+    const strtDate = new Date(
+      dateStruct.year,
+      dateStruct.month - 1,
+      dateStruct.day,
+      shiftTime.time_start_hour,
+      0,
+      0);
+
+    this.shiftView = {
+      startTime: strtDate,
+      endTime: (moment(strtDate).add(shiftTime.number_of_hours, 'hours')).toDate()
+    };
   }
 
   private buildForm() {

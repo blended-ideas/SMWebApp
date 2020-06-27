@@ -47,7 +47,13 @@
       </thead>
       <tbody>
       <tr *ngFor="let product of products">
-        <td>{{product.name}}</td>
+        <td>
+          <figure>
+            <img *ngIf="product.image" [alt]="product.name" [src]="product.image"
+                 class="img-fluid" style="max-width: 200px; max-height: 100px">
+            <figcaption>{{product.name}}</figcaption>
+          </figure>
+        </td>
         <td>{{product.stock}}</td>
         <td>{{product.price|inr}}</td>
         <td>{{product.barcode_entry}}</td>
@@ -60,6 +66,7 @@
       </tbody>
     </table>
   </div>
+
   <div class="d-flex justify-content-center justify-content-sm-end">
     <ngb-pagination
       (pageChange)="changeQueryParam('page', $event)"

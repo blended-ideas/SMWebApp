@@ -24,9 +24,12 @@
             </tbody>
           </table>
         </div>
-        <div class="card-footer d-flex justify-content-between">
-          <button (click)="downloadExpiryReport()" *ngIf="!isReportDownloading"
-                  class="btn btn-sm btn-outline-primary">Download
+        <div class="card-footer d-flex">
+          <button (click)="downloadExpiryReport(false)" *ngIf="!isReportDownloading"
+                  class="btn btn-sm btn-outline-primary mr-1">Download - 10 days
+          </button>
+          <button (click)="downloadExpiryReport(true)" *ngIf="!isReportDownloading"
+                  class="btn btn-sm btn-outline-primary mr-auto">Download All
           </button>
           <div *ngIf="isReportDownloading">
             <fa-icon [icon]="faSpinner" [spin]="true"></fa-icon>
