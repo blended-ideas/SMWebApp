@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SessionService} from '../../../services/session.service';
 import {faFileExcel, faPenAlt, faShoppingCart} from '@fortawesome/free-solid-svg-icons';
+import {APP_NAME} from '../../../constants/app.constants';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,6 +9,7 @@ import {faFileExcel, faPenAlt, faShoppingCart} from '@fortawesome/free-solid-svg
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  app_name = APP_NAME;
   viewMargin: boolean;
 
   faShoppingCart = faShoppingCart;

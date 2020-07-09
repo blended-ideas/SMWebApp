@@ -1,0 +1,52 @@
+/*!
+
+=========================================================
+* Now UI Dashboard Angular - v1.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/now-ui-dashboard-angular
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/now-ui-dashboard-angular/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import 'src/app/styles/now-ui-dashboard/variables';
+@import 'src/app/styles/now-ui-dashboard/mixins';
+
+// Plugins CSS
+@import "src/app/styles/now-ui-dashboard/plugins/plugin-animate-bootstrap-notify";
+@import "src/app/styles/now-ui-dashboard/plugins/plugin-perfect-scrollbar";
+
+// Core CSS
+@import "src/app/styles/now-ui-dashboard/buttons";
+@import "src/app/styles/now-ui-dashboard/inputs";
+@import "src/app/styles/now-ui-dashboard/typography";
+@import "src/app/styles/now-ui-dashboard/misc";
+@import "src/app/styles/now-ui-dashboard/checkboxes-radio";
+
+// components
+@import "src/app/styles/now-ui-dashboard/navbar";
+@import "src/app/styles/now-ui-dashboard/page-header";
+@import "src/app/styles/now-ui-dashboard/dropdown";
+@import "src/app/styles/now-ui-dashboard/alerts";
+@import "src/app/styles/now-ui-dashboard/images";
+@import "src/app/styles/now-ui-dashboard/nucleo-outline";
+@import "src/app/styles/now-ui-dashboard/tables";
+@import "src/app/styles/now-ui-dashboard/sidebar-and-main-panel";
+@import "src/app/styles/now-ui-dashboard/footers";
+@import "src/app/styles/now-ui-dashboard/fixed-plugin";
+
+// cards
+@import "src/app/styles/now-ui-dashboard/cards";
+@import "src/app/styles/now-ui-dashboard/cards/card-plain";
+@import "src/app/styles/now-ui-dashboard/cards/card-chart";
+@import "src/app/styles/now-ui-dashboard/cards/card-user";
+@import "src/app/styles/now-ui-dashboard/cards/card-map";
+
+@import "src/app/styles/now-ui-dashboard/responsive";

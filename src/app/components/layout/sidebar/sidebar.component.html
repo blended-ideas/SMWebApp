@@ -1,3 +1,4 @@
+<!--
 <div class="sidebar h-100 py-2">
   <ul class="sidebar__nav_list">
     <li [routerLink]="['/product']" class="sidebar__nav_item">
@@ -20,3 +21,45 @@
     </li>
   </ul>
 </div>
+-->
+
+
+<div class="logo">
+  <a [routerLink]="['/dashboard']" class="simple-text logo-mini">
+    <div class="logo-img">
+      <img alt="Mahamane Services" class="custom_logo_brand mr-2" src="assets/logos/logo_square_kannada.jpeg">
+    </div>
+  </a>
+  <a [routerLink]="['/dashboard']" class="simple-text logo-normal">
+    {{app_name}}
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <li class="nav-item" routerLinkActive="active">
+      <a [routerLink]="['/product']">
+        <i>
+          <fa-icon [icon]="faShoppingCart"></fa-icon>
+        </i>
+        <p>Products</p>
+      </a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a [routerLink]="['/shift']">
+        <i>
+          <fa-icon [icon]="faPenAlt"></fa-icon>
+        </i>
+        <p>Shifts</p>
+      </a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+      <a [routerLink]="['/margin']">
+        <i>
+          <fa-icon [icon]="faFileExcel"></fa-icon>
+        </i>
+        <p>Margin</p>
+      </a>
+    </li>
+  </ul>
+</div>
+
