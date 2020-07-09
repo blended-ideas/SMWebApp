@@ -137,6 +137,7 @@ export class ListShiftComponent implements OnInit {
     this.sortContext = this.sortContext || this.sortValues[0];
     params = params.set('ordering', this.sortContext.value);
 
+    this.isLoading = true;
     this.shiftService.getShifts(params)
       .subscribe(response => {
         this.shifts = response.results;

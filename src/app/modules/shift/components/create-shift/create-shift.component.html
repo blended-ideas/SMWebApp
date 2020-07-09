@@ -167,7 +167,7 @@
               <ng-container [formGroupName]="i">
                 <div class="d-flex justify-content-between">
                   <div>{{this.shiftForm.getRawValue()['entries'][i]['product'].name}} </div>
-                  <fa-icon [icon]="faTimes"></fa-icon>
+                  <fa-icon (click)="removeEntry(i)" [icon]="faTimes" class="clickable"></fa-icon>
                 </div>
                 <div class="col-8 row form-group">
                   <input class="form-control form-control-sm col-6" formControlName="quantity" id="entries{{i}}"

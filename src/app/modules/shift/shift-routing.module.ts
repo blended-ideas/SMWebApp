@@ -17,7 +17,7 @@ const routes: Routes = [
     path: ':shiftId/edit',
     component: EditShiftComponent,
     canActivate: [RoleGuard],
-    data: {roles: ['Admin', 'Auditor']}
+    data: {roles: ['Admin', 'Auditor', 'Shift']}
   },
   {path: ':shiftId/view', component: ViewShiftComponent},
   {path: '', component: ListShiftComponent},

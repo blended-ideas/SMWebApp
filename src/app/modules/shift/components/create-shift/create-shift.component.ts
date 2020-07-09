@@ -178,4 +178,8 @@ export class CreateShiftComponent implements OnInit {
       entries: this.fb.array([])
     });
   }
+
+  removeEntry(index: number) {
+    (this.shiftForm.controls.entries as FormArray).removeAt(index);
+  }
 }
