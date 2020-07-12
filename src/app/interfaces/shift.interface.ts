@@ -21,7 +21,7 @@ export interface ShiftDetailInterface {
   user_name: string;
   entries: ShiftEntryInterface[];
 
-  approved: boolean;
+  status: 'NEW' | 'WAITING_FOR_APPROVAL' | 'APPROVED';
   approved_by: number;
   approved_by_name: string;
 

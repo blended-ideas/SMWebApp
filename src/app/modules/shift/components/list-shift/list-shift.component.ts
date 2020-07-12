@@ -15,10 +15,11 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {HttpParams} from '@angular/common/http';
 import {IconDefinition} from '@fortawesome/fontawesome-common-types';
 import {ShiftDetailInterface} from '../../../../interfaces/shift.interface';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import {SessionService} from '../../../../services/session.service';
 import {UserInterface} from '../../../../interfaces/user.interface';
+import {CreateShiftComponent} from '../create-shift/create-shift.component';
 
 @Component({
   selector: 'app-list-shift',
@@ -33,6 +34,7 @@ export class ListShiftComponent implements OnInit {
   faSearch = faSearch;
   faCalendar = faCalendar;
   faTimes = faTimes;
+  faSortDown = faSortDown;
 
   paginationHelper = {
     currentPage: 1,
@@ -52,6 +54,11 @@ export class ListShiftComponent implements OnInit {
   selectedDate: string;
   selectedDateRaw: NgbDateStruct;
 
+  statusList = [
+    'ALL', 'NEW', 'WAITING_FOR_APPROVAL', 'APPROVED'
+  ];
+  selectedStatus: string;
+
   isAdmin: boolean;
   isAuditor: boolean;
   user: UserInterface;
@@ -59,6 +66,7 @@ export class ListShiftComponent implements OnInit {
   constructor(private shiftService: ShiftService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              private modalService: NgbModal,
               private router: Router) {
   }
 
@@ -72,12 +80,13 @@ export class ListShiftComponent implements OnInit {
     this.isAuditor = this.sessionService.isAuditor();
   }
 
-  changeQueryParam(paramType: 'search' | 'sort' | 'page' | 'date', paramValue: string | number | NgbDateStruct) {
+  changeQueryParam(paramType: 'search' | 'sort' | 'page' | 'date' | 'status', paramValue: string | number | NgbDateStruct) {
     const queryParams = {
       page: this.paginationHelper.pageSize,
       sort: this.sortContext.value,
       search: this.searchText,
-      date: this.selectedDate
+      date: this.selectedDate,
+      status: this.selectedStatus,
     };
 
     switch (paramType) {
@@ -87,6 +96,10 @@ export class ListShiftComponent implements OnInit {
       case 'search':
         queryParams.page = 1;
         queryParams.search = paramValue as string;
+        break;
+      case 'status':
+        queryParams.page = 1;
+        queryParams.status = paramValue as string;
         break;
       case 'sort':
         queryParams.page = 1;
@@ -108,7 +121,12 @@ export class ListShiftComponent implements OnInit {
     });
   }
 
+  startCreateShift() {
+    this.modalService.open(CreateShiftComponent);
+  }
+
   private fetchShifts(queryParamMap: ParamMap) {
+    console.log(queryParamMap);
     let params = new HttpParams().set('page_size', this.paginationHelper.pageSize.toString());
 
     if (queryParamMap.has('search')) {
@@ -119,6 +137,13 @@ export class ListShiftComponent implements OnInit {
     if (queryParamMap.has('page')) {
       this.paginationHelper.currentPage = Number(queryParamMap.get('page'));
       params = params.set('page', this.paginationHelper.currentPage.toString());
+    }
+
+    if (queryParamMap.has('status')) {
+      this.selectedStatus = queryParamMap.get('status');
+      if (this.selectedStatus && this.selectedStatus !== 'ALL') {
+        params = params.set('status', this.selectedStatus);
+      }
     }
 
     if (queryParamMap.has('date')) {

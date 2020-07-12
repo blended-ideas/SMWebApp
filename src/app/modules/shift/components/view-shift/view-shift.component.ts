@@ -56,6 +56,17 @@ export class ViewShiftComponent implements OnInit {
     });
   }
 
+  closeShift() {
+    if (!confirm('Close Shift?')) {
+      return;
+    }
+    this.shiftService.closeShift(this.shiftDetail.id).subscribe(response => {
+      this.shiftDetail = response;
+      this.checkAllowEdit();
+      alert('Shift Closed. Waiting for approval');
+    });
+  }
+
   private fetchShiftDetails(shiftId: string) {
     this.isLoading = true;
     this.shiftService.getShiftById(shiftId).subscribe(response => {
@@ -74,6 +85,8 @@ export class ViewShiftComponent implements OnInit {
   }
 
   private checkAllowEdit() {
-    this.allowEdit = (this.sessionService.isAuditor() && !this.shiftDetail.approved) || this.sessionService.isAdmin();
+    this.allowEdit = this.sessionService.isAdmin() ||
+      (['WAITING_FOR_APPROVAL', 'NEW'].indexOf(this.shiftDetail.status) > -1 && this.sessionService.isAuditor()) ||
+      (this.shiftDetail.status === 'NEW' && this.sessionService.isShiftWorker());
   }
 }

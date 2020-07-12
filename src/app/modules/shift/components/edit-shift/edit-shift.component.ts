@@ -154,7 +154,9 @@ export class EditShiftComponent implements OnInit {
   }
 
   private checkAllowEdit() {
-    this.allowEdit = this.sessionService.isAdmin() || (!this.shift.approved && this.sessionService.isAuditor());
+    this.allowEdit = this.sessionService.isAdmin() ||
+      (['WAITING_FOR_APPROVAL', 'NEW'].indexOf(this.shift.status) && this.sessionService.isAuditor()) ||
+      (this.shift.status === 'NEW' && this.sessionService.isShiftWorker());
   }
 
   private buildForm() {

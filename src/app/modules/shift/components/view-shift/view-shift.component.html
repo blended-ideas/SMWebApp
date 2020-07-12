@@ -10,7 +10,13 @@
       Edit
     </button>
 
-    <button (click)="approveShift()" *ngIf="shiftDetail && !shiftDetail.approved && (isAdmin || isAuditor)"
+    <button (click)="closeShift()" *ngIf="shiftDetail?.status === 'NEW'" class="btn btn-sm btn-secondary ml-2"
+            type="button">
+      Close Shift
+    </button>
+
+    <button (click)="approveShift()"
+            *ngIf="shiftDetail?.status === 'WAITING_FOR_APPROVAL' && (isAdmin || isAuditor)"
             class="btn btn-sm btn-secondary ml-2">
       <fa-icon [icon]="faCheck"></fa-icon>
       Approve
@@ -27,6 +33,11 @@
     <div class="row">
       <div class="col-4">Shift By:</div>
       <div class="col-8">{{shiftDetail.user_name}}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">Status:</div>
+      <div class="col-8">{{shiftDetail.status | statusDisplay}}</div>
     </div>
 
     <div class="row">

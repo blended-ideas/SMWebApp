@@ -1,7 +1,7 @@
 <div class="app-page-title align-items-center">
   <h3>Shifts</h3>
   <div class="ml-auto">
-    <button [routerLink]="['/shift', 'create']" class="btn btn-sm btn-primary" type="button">
+    <button (click)="startCreateShift()" class="btn btn-sm btn-primary" type="button">
       <fa-icon [icon]="faPlusSquare"></fa-icon>
       Create
     </button>
@@ -12,7 +12,7 @@
   <div class="card flex-row d-block d-sm-flex">
     <div *ngIf="sortContext" class="filter p-2 border-right clickable" ngbDropdown>
       <div class="text-center" ngbDropdownToggle>
-        {{sortContext.name}}&nbsp;
+        Sort By: {{sortContext.name}}&nbsp;
         <fa-icon [icon]="sortContext.icon" class="ml-4"></fa-icon>
       </div>
       <div aria-labelledby="dropdownBasic1" ngbDropdownMenu>
@@ -21,6 +21,20 @@
                   class="d-flex justify-content-between" ngbDropdownItem>
             {{sortValue.name}}
             <fa-icon [icon]="sortValue.icon"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="filter p-2 border-right clickable" ngbDropdown>
+      <div class="text-center" ngbDropdownToggle>
+        Status: {{selectedStatus | statusDisplay}}
+        <fa-icon [icon]="faSortDown" class="ml-4"></fa-icon>
+      </div>
+      <div aria-labelledby="dropdownBasic1" ngbDropdownMenu>
+        <div class="p-2">
+          <button (click)="changeQueryParam('status', sts)" *ngFor="let sts of statusList"
+                  class="d-flex justify-content-between" ngbDropdownItem>
+            {{sts|statusDisplay}}
           </button>
         </div>
       </div>
@@ -53,6 +67,7 @@
       <thead class="thead-dark">
       <tr>
         <th scope="col">Name</th>
+        <th scope="col">Status</th>
         <th scope="col">End Date</th>
         <th class="text-right" scope="col">Shift Total</th>
         <th class="text-right" scope="col">Retailer Margin</th>
@@ -63,12 +78,13 @@
       <tbody>
       <tr *ngFor="let shift of shifts">
         <td>{{shift.user_name}}</td>
+        <td>{{shift.status|statusDisplay}}</td>
         <td>{{shift.end_dt | date: 'dd/MM/yyyy hh:mm a'}}</td>
         <td class="text-right">{{shift.price_total | inr}}</td>
         <td class="text-right">{{shift.retailer_margin_total| inr}}</td>
         <td class="text-right">{{shift.distributor_margin_total| inr}}</td>
         <td class="text-right">
-          <fa-icon *ngIf="isAdmin || !shift.approved"
+          <fa-icon *ngIf="isAdmin || shift.status !== 'APPROVED'"
                    [icon]="faEdit" [routerLink]="['/shift', shift.id, 'edit']"
                    class="clickable mr-1"></fa-icon>
           <fa-icon [icon]="faEye" [routerLink]="['/shift', shift.id, 'view']" class="clickable ml-1"></fa-icon>

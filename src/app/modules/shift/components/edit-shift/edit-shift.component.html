@@ -30,7 +30,7 @@
             <div class="col-4">Shift By:</div>
             <div class="col-8">{{shift.user_name}}</div>
           </div>
-          <div *ngIf="shift.approved" class="row">
+          <div *ngIf="shift.status === 'APPROVED'" class="row">
             <div class="col-4">Approved By:</div>
             <div class="col-8">{{shift.approved_by_name}}</div>
           </div>
