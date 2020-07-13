@@ -11,10 +11,11 @@ import {NgbDatepickerModule, NgbDropdownModule, NgbPaginationModule, NgbTimepick
 import {NgSelectModule} from '@ng-select/ng-select';
 import {PipeModule} from '../pipe/pipe.module';
 import {EditShiftComponent} from './components/edit-shift/edit-shift.component';
+import {AddProductsToShiftComponent} from './components/view-shift/add-products-to-shift/add-products-to-shift.component';
 
 
 @NgModule({
-  declarations: [ListShiftComponent, CreateShiftComponent, ViewShiftComponent, EditShiftComponent],
+  declarations: [ListShiftComponent, CreateShiftComponent, ViewShiftComponent, EditShiftComponent, AddProductsToShiftComponent],
   imports: [
     CommonModule,
     ShiftRoutingModule,

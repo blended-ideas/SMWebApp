@@ -15,6 +15,7 @@ import {SidebarComponent} from './components/layout/sidebar/sidebar.component';
 import {BaseViewComponent} from './components/layout/base-view/base-view.component';
 import {NgbCollapseModule, NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     NgbDropdownModule,

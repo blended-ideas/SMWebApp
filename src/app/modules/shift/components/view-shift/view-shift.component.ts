@@ -5,6 +5,8 @@ import {Location} from '@angular/common';
 import {ShiftDetailInterface} from '../../../../interfaces/shift.interface';
 import {faCheck, faEdit, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {SessionService} from '../../../../services/session.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddProductsToShiftComponent} from './add-products-to-shift/add-products-to-shift.component';
 
 @Component({
   selector: 'app-view-shift',
@@ -26,6 +28,7 @@ export class ViewShiftComponent implements OnInit {
   constructor(private shiftService: ShiftService,
               private route: ActivatedRoute,
               private sessionService: SessionService,
+              private modal: NgbModal,
               private location: Location) {
   }
 
@@ -64,6 +67,19 @@ export class ViewShiftComponent implements OnInit {
       this.shiftDetail = response;
       this.checkAllowEdit();
       alert('Shift Closed. Waiting for approval');
+    });
+  }
+
+  addProductsToShift() {
+    const modal = this.modal.open(AddProductsToShiftComponent, {backdrop: 'static', keyboard: false});
+    modal.componentInstance.shift = this.shiftDetail;
+    modal.result.then((response: ShiftDetailInterface) => {
+      this.shiftDetail = response;
+      this.shiftDetail.entries.forEach(entry => {
+        entry.entry_total = entry.price * entry.quantity;
+      });
+    }, () => {
+
     });
   }
 
