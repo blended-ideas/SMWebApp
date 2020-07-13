@@ -84,9 +84,6 @@
         <td class="text-right">{{shift.retailer_margin_total| inr}}</td>
         <td class="text-right">{{shift.distributor_margin_total| inr}}</td>
         <td class="text-right">
-          <fa-icon *ngIf="isAdmin || shift.status !== 'APPROVED'"
-                   [icon]="faEdit" [routerLink]="['/shift', shift.id, 'edit']"
-                   class="clickable mr-1"></fa-icon>
           <fa-icon [icon]="faEye" [routerLink]="['/shift', shift.id, 'view']" class="clickable ml-1"></fa-icon>
         </td>
       </tr>

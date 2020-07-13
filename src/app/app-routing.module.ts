@@ -15,7 +15,7 @@ const routes: Routes = [
       {path: 'product', loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule)},
       {path: 'shift', loadChildren: () => import('./modules/shift/shift.module').then(m => m.ShiftModule)},
       {path: 'margin', loadChildren: () => import('./modules/margin/margin.module').then(m => m.MarginModule)},
-      {path: '**', redirectTo: '/login'},
+      {path: '**', redirectTo: '/dashboard'},
     ]
   }
 ];
