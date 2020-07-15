@@ -63,8 +63,8 @@ export class CreateShiftComponent implements OnInit {
       alert('End date/time cannot be less than start date/time');
       return;
     }
-    if (dateNow < this.shiftView.startTime || dateNow < this.shiftView.endTime) {
-      alert('Start date and end date should be greater than current date-time');
+    if (dateNow < this.shiftView.startTime) {
+      alert('Start date should be greater than current date-time');
       return;
     }
 
@@ -80,7 +80,7 @@ export class CreateShiftComponent implements OnInit {
       alert('Shift Added');
       this.isCreating = false;
       this.modal.close();
-      this.router.navigate(['shift', response.id, 'edit']);
+      this.router.navigate(['shift', response.id, 'view']);
     }, () => {
       this.isCreating = false;
     });
