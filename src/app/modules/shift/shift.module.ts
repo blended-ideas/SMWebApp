@@ -12,10 +12,11 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {PipeModule} from '../pipe/pipe.module';
 import {EditShiftComponent} from './components/edit-shift/edit-shift.component';
 import {AddProductsToShiftComponent} from './components/view-shift/add-products-to-shift/add-products-to-shift.component';
+import {EditShiftEntryComponent} from './components/view-shift/edit-shift-entry/edit-shift-entry.component';
 
 
 @NgModule({
-  declarations: [ListShiftComponent, CreateShiftComponent, ViewShiftComponent, EditShiftComponent, AddProductsToShiftComponent],
+  declarations: [ListShiftComponent, CreateShiftComponent, ViewShiftComponent, EditShiftComponent, AddProductsToShiftComponent, EditShiftEntryComponent],
   imports: [
     CommonModule,
     ShiftRoutingModule,

@@ -84,6 +84,7 @@
           <th class="text-right" scope="col">Shell Margin</th>
           <th class="text-right" scope="col">Retailer Margin</th>
           <th class="text-right" scope="col">Total</th>
+          <th *ngIf="shiftDetail.status !== 'APPROVED' || isAdmin" class="text-right" scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -94,6 +95,9 @@
           <td class="text-right">{{entry.distributor_margin}}%</td>
           <td class="text-right">{{entry.retailer_margin}}%</td>
           <td class="text-right">{{entry.entry_total|inr}}</td>
+          <td *ngIf="shiftDetail.status !== 'APPROVED' || isAdmin" class="text-right">
+            <fa-icon (click)="startEntryEdit(entry)" [icon]="faEdit" class="clickable"></fa-icon>
+          </td>
         </tbody>
       </table>
     </div>

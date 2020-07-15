@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {ShiftService} from '../../../../services/shift.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {ShiftDetailInterface} from '../../../../interfaces/shift.interface';
+import {ShiftDetailInterface, ShiftEntryInterface} from '../../../../interfaces/shift.interface';
 import {faCheck, faEdit, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {SessionService} from '../../../../services/session.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddProductsToShiftComponent} from './add-products-to-shift/add-products-to-shift.component';
+import {EditShiftEntryComponent} from './edit-shift-entry/edit-shift-entry.component';
 
 @Component({
   selector: 'app-view-shift',
@@ -21,7 +22,6 @@ export class ViewShiftComponent implements OnInit {
   faCheck = faCheck;
 
   isLoading: boolean;
-  allowEdit: boolean;
   isAuditor: boolean;
   isAdmin: boolean;
 
@@ -37,7 +37,7 @@ export class ViewShiftComponent implements OnInit {
       if (!paramMap.has('shiftId')) {
         this.location.back();
       }
-      this.fetchShiftDetails(paramMap.get('shiftId'));
+      this.fetchShiftDetails(paramMap.get('shiftId'), true);
     });
 
     this.isAuditor = this.sessionService.isAuditor();
@@ -54,7 +54,7 @@ export class ViewShiftComponent implements OnInit {
     }
     this.shiftService.approveShift(this.shiftDetail.id).subscribe(response => {
       this.shiftDetail = response;
-      this.checkAllowEdit();
+      this.computeShiftEntryValues();
       alert('Shift Approved');
     });
   }
@@ -65,7 +65,7 @@ export class ViewShiftComponent implements OnInit {
     }
     this.shiftService.closeShift(this.shiftDetail.id).subscribe(response => {
       this.shiftDetail = response;
-      this.checkAllowEdit();
+      this.computeShiftEntryValues();
       alert('Shift Closed. Waiting for approval');
     });
   }
@@ -83,14 +83,26 @@ export class ViewShiftComponent implements OnInit {
     });
   }
 
-  private fetchShiftDetails(shiftId: string) {
-    this.isLoading = true;
+  startEntryEdit(shiftEntry: ShiftEntryInterface) {
+    const modal = this.modal.open(EditShiftEntryComponent);
+    modal.componentInstance.shiftEntry = shiftEntry;
+
+    modal.result.then((se: ShiftEntryInterface) => {
+      const index = this.shiftDetail.entries.findIndex(s => s.id === se.id);
+      if (index > -1) {
+        this.fetchShiftDetails(this.shiftDetail.id);
+      }
+    });
+  }
+
+  private fetchShiftDetails(shiftId: string, updateLoading = false) {
+    if (updateLoading) {
+      this.isLoading = true;
+    }
+
     this.shiftService.getShiftById(shiftId).subscribe(response => {
       this.shiftDetail = response;
-      this.shiftDetail.entries.forEach(entry => {
-        entry.entry_total = entry.price * entry.quantity;
-      });
-      this.checkAllowEdit();
+      this.computeShiftEntryValues();
       this.isLoading = false;
     }, error => {
       if (error.status === 403) {
@@ -100,9 +112,9 @@ export class ViewShiftComponent implements OnInit {
     });
   }
 
-  private checkAllowEdit() {
-    this.allowEdit = this.sessionService.isAdmin() ||
-      (['WAITING_FOR_APPROVAL', 'NEW'].indexOf(this.shiftDetail.status) > -1 && this.sessionService.isAuditor()) ||
-      (this.shiftDetail.status === 'NEW' && this.sessionService.isShiftWorker());
+  private computeShiftEntryValues() {
+    this.shiftDetail.entries.forEach(entry => {
+      entry.entry_total = entry.price * entry.quantity;
+    });
   }
 }

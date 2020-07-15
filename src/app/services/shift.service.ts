@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ShiftDetailInterface} from '../interfaces/shift.interface';
+import {ShiftDetailInterface, ShiftEntryInterface} from '../interfaces/shift.interface';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {SHIFT_APIS} from '../constants/api.constants';
 import {PaginatedResponseInterface} from '../interfaces/paginatedResponse.interface';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,10 @@ export class ShiftService {
   }
 
   getShiftById(id: string): Observable<ShiftDetailInterface> {
-    return this.httpClient.get<ShiftDetailInterface>(`${SHIFT_APIS.detail}${id}/`);
+    return this.httpClient.get<ShiftDetailInterface>(`${SHIFT_APIS.detail}${id}/`).pipe(map(shift => {
+      shift.entries = shift.entries.sort((a, b) => a.product_name.localeCompare(b.product_name));
+      return shift;
+    }));
   }
 
   approveShift(shiftId: string) {
@@ -42,5 +46,9 @@ export class ShiftService {
 
   addProductsToShift(shiftId: string, products: object) {
     return this.httpClient.patch<ShiftDetailInterface>(`${SHIFT_APIS.detail}${shiftId}/${SHIFT_APIS.add_products}/`, products);
+  }
+
+  updateShiftEntry(shiftEntryId: number, patchObj: object): Observable<ShiftEntryInterface> {
+    return this.httpClient.patch<ShiftEntryInterface>(`${SHIFT_APIS.entry}${shiftEntryId}/`, patchObj);
   }
 }

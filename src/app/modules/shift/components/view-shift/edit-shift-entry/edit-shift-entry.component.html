@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <div class="modal-title">Edit Shift Entry for <strong>{{shiftEntry.product_name}}</strong></div>
+</div>
+
+<div class="modal-body">
+  <form (validSubmit)="onSave()" [formGroup]="updateEntryForm" id="updateEntryFormRef">
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input class="form-control form-control-sm" formControlName="quantity" id="quantity"
+             name="quantity" type="number">
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button *ngIf="!isUpdating" class="btn btn-sm btn-primary clickable" form="updateEntryFormRef">
+    Update
+  </button>
+  <fa-icon *ngIf="isUpdating" [icon]="faSpinner" [spin]="true"></fa-icon>
+</div>
